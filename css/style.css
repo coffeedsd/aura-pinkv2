@@ -439,16 +439,7 @@ input, button { font-family: inherit; }
   padding-top: var(--header-h);
 }
 
-.hero-bottom-fade {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 220px;
-  background: linear-gradient(to bottom, transparent 0%, var(--color-cream) 100%);
-  pointer-events: none;
-  z-index: 4;
-}
+
 
 .hero-bg {
   position: absolute;
@@ -597,6 +588,21 @@ input, button { font-family: inherit; }
 }
 
 /* ── 9. CATEGORIES ──────────────────────────────────── */
+.categories.section {
+  position: relative;
+}
+.categories.section::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent 0%, var(--color-cream) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
 .categories-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1064,7 +1070,7 @@ input, button { font-family: inherit; }
 }
 .subscribe-petal--2 {
   width: 220px;
-  height: 220px;
+  height: 300px;
   background: radial-gradient(circle, var(--color-rose), transparent 70%);
   bottom: -60px;
   left: 8%;
