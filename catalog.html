@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+      m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109393999','ym');
+    ym(109393999, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:'dataLayer', referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109393999" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Каталог — Aura Pink</title>
+  <meta name="description" content="Каталог женской одежды Aura Pink — платья, костюмы, блузы." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .catalog-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: var(--space-12);
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: var(--space-12) var(--space-8);
+    }
+
+    /* ── Sidebar ── */
+    .catalog-sidebar {
+      position: sticky;
+      top: calc(var(--header-h) + 2rem);
+      height: fit-content;
+    }
+
+    .sidebar-section {
+      margin-bottom: var(--space-8);
+      padding-bottom: var(--space-8);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .sidebar-section:last-child { border-bottom: none; }
+
+    .sidebar-label {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-text-soft);
+      margin-bottom: var(--space-4);
+    }
+
+    .filter-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .filter-item button {
+      background: none;
+      border: none;
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: var(--color-text-soft);
+      cursor: pointer;
+      padding: var(--space-1) 0;
+      text-align: left;
+      transition: color var(--t-fast) var(--ease-out);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .filter-item button:hover,
+    .filter-item button.active {
+      color: var(--color-ink);
+    }
+
+    .filter-item button.active::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-rose);
+      flex-shrink: 0;
+    }
+
+    /* Price range */
+    .price-range {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .price-inputs {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .price-input {
+      flex: 1;
+      padding: var(--space-2) var(--space-3);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: var(--color-ink);
+      background: var(--color-cream);
+      width: 0;
+    }
+    .price-input:focus { outline: none; border-color: var(--color-rose); }
+
+    .price-sep { color: var(--color-text-muted); font-size: var(--text-sm); }
+
+    .price-apply {
+      padding: var(--space-2) var(--space-4);
+      background: var(--color-ink);
+      color: var(--color-cream);
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── Main ── */
+    .catalog-main {}
+
+    .catalog-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-8);
+      padding-bottom: var(--space-6);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .catalog-title {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      color: var(--color-ink);
+      font-weight: 400;
+    }
+
+    .catalog-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+    }
+
+    .catalog-count {
+      font-size: var(--text-sm);
+      color: var(--color-text-soft);
+    }
+
+    .catalog-sort {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--color-text-soft);
+    }
+
+    .sort-select {
+      background: none;
+      border: none;
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: var(--color-ink);
+      cursor: pointer;
+      padding: 0;
+    }
+    .sort-select:focus { outline: none; }
+
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6) var(--space-4);
+    }
+
+    /* Active filters */
+    .active-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-bottom: var(--space-6);
+    }
+
+    .active-filter-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-1) var(--space-3);
+      background: var(--color-rose-light);
+      border-radius: 100px;
+      font-size: var(--text-xs);
+      color: var(--color-ink);
+      font-weight: 600;
+    }
+
+    .active-filter-tag button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-rose-deep);
+      font-size: 0.9rem;
+      line-height: 1;
+      padding: 0;
+    }
+
+    /* Empty/loading */
+    .catalog-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: var(--space-24) var(--space-8);
+      color: var(--color-text-soft);
+    }
+
+    .catalog-empty p { font-size: var(--text-md); margin-bottom: var(--space-4); }
+
+    /* Mobile filters toggle */
+    .mobile-filter-btn {
+      display: none;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      background: var(--color-cream-dark);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: var(--color-ink);
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .catalog-layout { grid-template-columns: 1fr; padding: var(--space-6) var(--space-4); gap: var(--space-6); }
+      .catalog-sidebar { position: static; display: none; }
+      .catalog-sidebar.open { display: block; margin-bottom: var(--space-6); }
+      .mobile-filter-btn { display: inline-flex; }
+      .catalog-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .catalog-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-3);
+        margin-bottom: var(--space-6);
+      }
+
+      .catalog-meta {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: var(--space-3);
+      }
+
+      .catalog-title {
+        font-size: var(--text-xl);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .catalog-layout { padding: var(--space-4) var(--space-3); }
+      .catalog-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-3) var(--space-2); }
+
+      .catalog-top {
+        margin-bottom: var(--space-4);
+        padding-bottom: var(--space-4);
+      }
+
+      .catalog-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2);
+      }
+
+      .mobile-filter-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── НАВИГАЦИЯ ─────────────────────────────────────── -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <nav class="nav-left">
+        <a href="catalog.html" class="nav-link" style="color:var(--color-rose)">Каталог</a>
+        <a href="index.html#about" class="nav-link">О марке</a>
+      </nav>
+      <a href="index.html" class="logo" aria-label="Aura Pink — на главную">
+        <span class="logo-text">Aura Pink</span>
+      </a>
+      <nav class="nav-right">
+        <a href="index.html#lookbook" class="nav-link">Lookbook</a>
+        <a href="delivery.html" class="nav-link">Доставка</a>
+        <a href="contacts.html" class="nav-link">Контакты</a>
+        <button class="nav-icon-btn" id="wishlist-toggle" aria-label="Избранное">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          <span class="wishlist-count" id="wishlist-count"></span>
+        </button>
+        <button class="nav-icon-btn cart-btn" aria-label="Корзина" id="cart-toggle">
+          <span class="cart-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          </span>
+          <span class="cart-count" id="cart-count">0</span>
+        </button>
+        <button class="burger" aria-label="Меню" id="burger"><span></span><span></span><span></span></button>
+      </nav>
+    </div>
+  </header>
+
+    <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+      <a href="catalog.html" class="mobile-nav-link">Каталог</a>
+      <a href="index.html#about" class="mobile-nav-link">О марке</a>
+      <a href="index.html#lookbook" class="mobile-nav-link">Lookbook</a>
+    </div>
+
+  <main>
+    <div class="catalog-layout">
+
+      <!-- ── Сайдбар с фильтрами ── -->
+      <aside class="catalog-sidebar" id="catalog-sidebar">
+
+        <div class="sidebar-section">
+          <p class="sidebar-label">Категория</p>
+          <ul class="filter-list">
+            <li class="filter-item"><button class="active" data-cat="all">Все товары</button></li>
+            <li class="filter-item"><button data-cat="dress">Платья</button></li>
+            <li class="filter-item"><button data-cat="suit">Костюмы</button></li>
+            <li class="filter-item"><button data-cat="blouse">Блузы</button></li>
+            <li class="filter-item"><button data-cat="skirt">Юбки</button></li>
+            <li class="filter-item"><button data-cat="other">Другое</button></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <p class="sidebar-label">Наличие</p>
+          <ul class="filter-list">
+            <li class="filter-item"><button class="active" data-stock="all">Все</button></li>
+            <li class="filter-item"><button data-stock="in">В наличии</button></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <p class="sidebar-label">Цена, ₽</p>
+          <div class="price-range">
+            <div class="price-inputs">
+              <input type="number" class="price-input" id="price-min" placeholder="от" min="0" />
+              <span class="price-sep">—</span>
+              <input type="number" class="price-input" id="price-max" placeholder="до" min="0" />
+            </div>
+            <button class="price-apply" id="price-apply">Применить</button>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- ── Основной контент ── -->
+      <div class="catalog-main">
+        <div class="catalog-top">
+          <h1 class="catalog-title">Каталог</h1>
+          <div class="catalog-meta">
+            <span class="catalog-count" id="catalog-count">Загрузка...</span>
+            <label class="catalog-sort">
+              Сортировка:
+              <select class="sort-select" id="sort-select">
+                <option value="new">Сначала новые</option>
+                <option value="price-asc">Дешевле</option>
+                <option value="price-desc">Дороже</option>
+              </select>
+            </label>
+            <button class="mobile-filter-btn" id="mobile-filter-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+              Фильтры
+            </button>
+          </div>
+        </div>
+
+        <div class="active-filters" id="active-filters"></div>
+
+        <div class="catalog-grid products-grid" id="catalog-grid">
+          <div style="grid-column:1/-1;padding:4rem;text-align:center">
+            <div class="products-loading">
+              <span class="loading-dot"></span>
+              <span class="loading-dot"></span>
+              <span class="loading-dot"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ─── ФУТЕР ─────────────────────────────────────────── -->
+  <!-- ─── КНОПКА НАВЕРХ ────────────────────────────────── -->
+  <button class="back-to-top" id="back-to-top" aria-label="Наверх">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo">Aura Pink</a>
+          <p class="footer-tagline">Тихая роскошь.<br>Натуральные ткани.<br>Безупречный крой.</p>
+        </div>
+        <nav class="footer-nav">
+          <div class="footer-nav-col">
+            <p class="footer-nav-title">Покупателям</p>
+            <a href="delivery.html" class="footer-link">Доставка и оплата</a>
+            <a href="catalog.html" class="footer-link">Каталог</a>
+            <a href="contacts.html" class="footer-link">Контакты</a>
+          </div>
+          <div class="footer-nav-col">
+            <p class="footer-nav-title">Компания</p>
+            <a href="index.html#about" class="footer-link">О марке</a>
+            <a href="privacy.html" class="footer-link">Политика конфиденциальности</a>
+            <a href="oferta.html" class="footer-link">Публичная оферта</a>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Aura Pink</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    const SUPABASE_URL = 'https://acylsytogrgyesrcbthx.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_sTp-NwKK2dqaMjjMDcqDsA_HSl45kVD';
+
+    let allProducts = [];
+    let activeFilters = { cat: 'all', stock: 'all', priceMin: null, priceMax: null };
+
+    // ── Загрузка ──────────────────────────────────────────
+    async function loadProducts() {
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/products?order=created_at.desc`, {
+          headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+        });
+        allProducts = await res.json();
+        renderProducts();
+      } catch {
+        document.getElementById('catalog-grid').innerHTML = '<div class="catalog-empty"><p>Не удалось загрузить товары</p></div>';
+      }
+    }
+
+    function renderProducts() {
+      let products = allProducts.filter(p => {
+        if (activeFilters.cat !== 'all' && p.category !== activeFilters.cat) return false;
+        if (activeFilters.stock === 'in' && !p.in_stock) return false;
+        if (activeFilters.priceMin && p.price < activeFilters.priceMin) return false;
+        if (activeFilters.priceMax && p.price > activeFilters.priceMax) return false;
+        return true;
+      });
+
+      // Сортировка
+      const sort = document.getElementById('sort-select').value;
+      if (sort === 'price-asc') products.sort((a, b) => a.price - b.price);
+      if (sort === 'price-desc') products.sort((a, b) => b.price - a.price);
+
+      // Счётчик
+      const n = products.length;
+      document.getElementById('catalog-count').textContent =
+        `${n} ${n === 1 ? 'товар' : n < 5 ? 'товара' : 'товаров'}`;
+
+      const grid = document.getElementById('catalog-grid');
+      grid.innerHTML = '';
+
+      if (products.length === 0) {
+        grid.innerHTML = '<div class="catalog-empty"><p>Ничего не найдено</p><p style="font-size:.85rem">Попробуйте изменить фильтры</p></div>';
+        return;
+      }
+
+      products.forEach((p, i) => {
+        const card = document.createElement('article');
+        card.className = 'product-card reveal';
+        card.dataset.delay = i % 3;
+        const price = Number(p.price).toLocaleString('ru-RU');
+        const oldPrice = p.old_price ? `<span class="product-old-price">${Number(p.old_price).toLocaleString('ru-RU')} ₽</span>` : '';
+        const badge = p.old_price ? `<div class="product-badge product-badge--sale">−${Math.round((1 - p.price/p.old_price)*100)}%</div>` : (!p.in_stock ? `<div class="product-badge product-badge--out">Нет в наличии</div>` : '');
+        const imgStyle = p.image_url ? `background-image:url('${p.image_url}');background-size:cover;background-position:center;` : '';
+
+        card.innerHTML = `
+          <a href="product.html?id=${p.id}" class="product-card-link" aria-label="${p.name}">
+            <div class="product-img-wrap">
+              <div class="product-img" style="${imgStyle}"></div>
+              ${badge}
+            </div>
+            <div class="product-info">
+              <p class="product-brand">Aura Pink</p>
+              <h3 class="product-name">${p.name}</h3>
+              <p class="product-material">${p.description ? p.description.substring(0, 60) + (p.description.length > 60 ? '...' : '') : ''}</p>
+              <div class="product-footer">
+                <span class="product-price">${price} ₽ ${oldPrice}</span>
+              </div>
+            </div>
+          </a>`;
+        grid.appendChild(card);
+      });
+
+      // Reveal анимации
+      setTimeout(() => {
+        document.querySelectorAll('.reveal').forEach((el, i) => {
+          setTimeout(() => el.classList.add('is-visible'), i * 60);
+        });
+      }, 50);
+    }
+
+    // ── Фильтры по категории ──────────────────────────────
+    document.querySelectorAll('[data-cat]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-cat]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilters.cat = btn.dataset.cat;
+        renderProducts();
+        updateActiveFilterTags();
+      });
+    });
+
+    // Проверяем URL параметр категории
+    const urlCat = new URLSearchParams(location.search).get('cat');
+    if (urlCat) {
+      const btn = document.querySelector(`[data-cat="${urlCat}"]`);
+      if (btn) { btn.click(); }
+    }
+
+    // ── Фильтры по наличию ────────────────────────────────
+    document.querySelectorAll('[data-stock]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-stock]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilters.stock = btn.dataset.stock;
+        renderProducts();
+      });
+    });
+
+    // ── Цена ─────────────────────────────────────────────
+    document.getElementById('price-apply').addEventListener('click', () => {
+      activeFilters.priceMin = parseFloat(document.getElementById('price-min').value) || null;
+      activeFilters.priceMax = parseFloat(document.getElementById('price-max').value) || null;
+      renderProducts();
+      updateActiveFilterTags();
+    });
+
+    // ── Активные теги фильтров ────────────────────────────
+    const catLabels = { dress:'Платья', suit:'Костюмы', blouse:'Блузы', skirt:'Юбки', other:'Другое' };
+
+    function updateActiveFilterTags() {
+      const wrap = document.getElementById('active-filters');
+      wrap.innerHTML = '';
+      if (activeFilters.cat !== 'all') {
+        const tag = document.createElement('span');
+        tag.className = 'active-filter-tag';
+        tag.innerHTML = `${catLabels[activeFilters.cat]}<button onclick="clearCat()">×</button>`;
+        wrap.appendChild(tag);
+      }
+      if (activeFilters.priceMin || activeFilters.priceMax) {
+        const tag = document.createElement('span');
+        tag.className = 'active-filter-tag';
+        const min = activeFilters.priceMin ? activeFilters.priceMin.toLocaleString('ru-RU') : '0';
+        const max = activeFilters.priceMax ? activeFilters.priceMax.toLocaleString('ru-RU') : '∞';
+        tag.innerHTML = `${min} — ${max} ₽<button onclick="clearPrice()">×</button>`;
+        wrap.appendChild(tag);
+      }
+    }
+
+    window.clearCat = () => {
+      activeFilters.cat = 'all';
+      document.querySelectorAll('[data-cat]').forEach(b => b.classList.remove('active'));
+      document.querySelector('[data-cat="all"]').classList.add('active');
+      renderProducts(); updateActiveFilterTags();
+    };
+
+    window.clearPrice = () => {
+      activeFilters.priceMin = null; activeFilters.priceMax = null;
+      document.getElementById('price-min').value = '';
+      document.getElementById('price-max').value = '';
+      renderProducts(); updateActiveFilterTags();
+    };
+
+    // ── Сортировка ────────────────────────────────────────
+    document.getElementById('sort-select').addEventListener('change', renderProducts);
+
+    // ── Мобильный фильтр ─────────────────────────────────
+    document.getElementById('mobile-filter-btn').addEventListener('click', () => {
+      document.getElementById('catalog-sidebar').classList.toggle('open');
+    });
+
+    loadProducts();
+  </script>
+  <script>
+    // Back to top
+    const _btt = document.getElementById('back-to-top');
+    if (_btt) {
+      window.addEventListener('scroll', () => {
+        _btt.classList.toggle('visible', window.scrollY > 300);
+      }, { passive: true });
+      _btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
+  </script>
+</body>
+</html>

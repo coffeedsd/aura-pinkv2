@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aura Pink — Админ панель</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:      #FAF7F2;
+      --cream-dark: #F2EDE5;
+      --parchment:  #E8E0D4;
+      --warm-200:   #B8A99A;
+      --warm-400:   #8A7869;
+      --ink:        #2A2118;
+      --ink-soft:   #473A30;
+      --rose:       #C4927A;
+      --rose-light: #E8C4B4;
+      --surface:    #FFFFFF;
+      --border:     #E8E0D4;
+      --red:        #C0392B;
+      --green:      #27AE60;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Nunito Sans', sans-serif;
+      --radius:     6px;
+      --shadow:     0 2px 16px rgba(42,33,24,.08);
+    }
+
+    body { font-family: var(--font-body); background: var(--cream); color: var(--ink); min-height: 100vh; }
+
+    /* LOGIN */
+    #login-screen {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
+      padding: 1rem;
+    }
+    .login-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 2.5rem 2rem;
+      width: 100%; max-width: 420px; box-shadow: var(--shadow); text-align: center;
+    }
+    .login-logo { font-family: var(--font-display); font-size: 2rem; color: var(--ink); margin-bottom: 0.25rem; }
+    .login-subtitle { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warm-400); margin-bottom: 2rem; }
+    .login-card label { display: block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm-400); margin-bottom: 0.4rem; text-align: left; }
+    .login-card input { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--border); border-radius: var(--radius); font-family: var(--font-body); font-size: 1rem; color: var(--ink); background: var(--cream); margin-bottom: 1.25rem; transition: border-color .2s; }
+    .login-card input:focus { outline: none; border-color: var(--rose); }
+    .btn-primary { width: 100%; padding: 0.85rem; background: var(--ink); color: var(--cream); border: none; border-radius: var(--radius); font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; letter-spacing: 0.06em; cursor: pointer; transition: background .2s; }
+    .btn-primary:hover { background: var(--ink-soft); }
+    .login-error { color: var(--red); font-size: 0.85rem; margin-top: 0.75rem; display: none; }
+
+    /* ADMIN */
+    #admin-screen { display: none; }
+
+    .admin-header {
+      background: var(--ink); color: var(--cream);
+      padding: 0.75rem 1rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.5rem;
+    }
+    .admin-header-logo { font-family: var(--font-display); font-size: 1.2rem; text-decoration: none; color: var(--cream); display: inline-flex; align-items: center; gap: 0.4rem; }
+    .admin-header-right { display: flex; align-items: center; gap: 0.75rem; }
+    .admin-header-right span { font-size: 0.75rem; color: var(--warm-200); max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .btn-logout { padding: 0.35rem 0.85rem; background: transparent; color: var(--cream); border: 1px solid rgba(255,255,255,.3); border-radius: var(--radius); font-family: var(--font-body); font-size: 0.8rem; cursor: pointer; white-space: nowrap; }
+    .btn-logout:hover { border-color: rgba(255,255,255,.7); }
+
+    /* TABS */
+    .admin-tabs { display: flex; border-bottom: 1px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .admin-tab { flex-shrink: 0; padding: 0.75rem 1rem; background: none; border: none; border-bottom: 2px solid transparent; font-family: var(--font-body); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--warm-400); cursor: pointer; transition: color .2s, border-color .2s; margin-bottom: -1px; white-space: nowrap; }
+    .admin-tab.active { color: var(--ink); border-bottom-color: var(--rose); }
+    .admin-tab:hover { color: var(--ink); }
+
+    /* BODY */
+    .admin-body { max-width: 1100px; margin: 0 auto; padding: 1.25rem 1rem; }
+
+    .admin-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .admin-title { font-family: var(--font-display); font-size: 1.6rem; color: var(--ink); }
+
+    .btn-add { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.25rem; background: var(--rose); color: var(--surface); border: none; border-radius: var(--radius); font-family: var(--font-body); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background .2s; white-space: nowrap; }
+    .btn-add:hover { background: #b07e68; }
+
+    /* STATS */
+    .admin-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1.5rem; }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; }
+    .stat-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm-400); margin-bottom: 0.3rem; }
+    .stat-value { font-family: var(--font-display); font-size: 1.8rem; color: var(--ink); }
+
+    /* TABLE */
+    .products-table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow-x: auto; box-shadow: var(--shadow); }
+    .products-table { width: 100%; border-collapse: collapse; min-width: 500px; }
+    .products-table th { background: var(--cream-dark); padding: 0.75rem 0.75rem; text-align: left; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm-400); border-bottom: 1px solid var(--border); }
+    .products-table td { padding: 0.8rem 0.75rem; border-bottom: 1px solid var(--parchment); vertical-align: middle; font-size: 0.85rem; }
+    .products-table tr:last-child td { border-bottom: none; }
+    .product-thumb { width: 48px; height: 48px; border-radius: 4px; object-fit: cover; background: var(--parchment); display: block; }
+    .product-thumb-placeholder { width: 48px; height: 48px; border-radius: 4px; background: var(--parchment); display: flex; align-items: center; justify-content: center; color: var(--warm-200); font-size: 1.1rem; }
+    .badge-in { color: var(--green); font-size: 0.75rem; font-weight: 600; }
+    .badge-out { color: var(--red); font-size: 0.75rem; font-weight: 600; }
+    .table-actions { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .btn-edit, .btn-delete { padding: 0.3rem 0.7rem; border-radius: 4px; font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; cursor: pointer; border: 1.5px solid; transition: all .2s; white-space: nowrap; }
+    .btn-edit { background: transparent; color: var(--ink); border-color: var(--warm-200); }
+    .btn-edit:hover { border-color: var(--ink); }
+    .btn-delete { background: transparent; color: var(--red); border-color: rgba(192,57,43,.3); }
+    .btn-delete:hover { background: var(--red); color: #fff; border-color: var(--red); }
+    .empty-state { text-align: center; padding: 3rem 2rem; color: var(--warm-400); }
+    .empty-state p { margin-bottom: 1rem; font-size: 1rem; }
+
+    /* MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(42,33,24,.5); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; visibility: hidden; transition: all .25s; }
+    .modal-overlay.open { opacity: 1; visibility: visible; }
+    .modal { background: var(--surface); border-radius: 12px; width: 100%; max-width: 560px; max-height: 92vh; overflow-y: auto; box-shadow: 0 8px 48px rgba(42,33,24,.2); transform: translateY(16px); transition: transform .25s; }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .modal-title { font-family: var(--font-display); font-size: 1.3rem; }
+    .modal-close { background: none; border: none; font-size: 1.3rem; color: var(--warm-400); cursor: pointer; line-height: 1; padding: 0.25rem; }
+    .modal-close:hover { color: var(--ink); }
+    .modal-body { padding: 1.25rem 1.5rem 1.5rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { margin-bottom: 1.1rem; }
+    .form-group label { display: block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm-400); margin-bottom: 0.35rem; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.65rem 0.85rem; border: 1.5px solid var(--border); border-radius: var(--radius); font-family: var(--font-body); font-size: 0.95rem; color: var(--ink); background: var(--cream); transition: border-color .2s; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--rose); }
+    .form-group textarea { resize: vertical; min-height: 75px; }
+    .form-check { display: flex; align-items: center; gap: 0.6rem; cursor: pointer; font-size: 0.9rem; }
+    .form-check input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--rose); }
+    .modal-footer { display: flex; gap: 0.75rem; justify-content: flex-end; padding-top: 1rem; border-top: 1px solid var(--border); margin-top: 1.25rem; }
+    .btn-cancel { padding: 0.65rem 1.25rem; background: transparent; color: var(--ink); border: 1.5px solid var(--warm-200); border-radius: var(--radius); font-family: var(--font-body); font-size: 0.9rem; cursor: pointer; }
+    .btn-save { padding: 0.65rem 1.25rem; background: var(--ink); color: var(--cream); border: none; border-radius: var(--radius); font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+    .btn-save:disabled { opacity: .6; cursor: not-allowed; }
+
+    /* UPLOAD */
+    .upload-area { border: 2px dashed var(--border); border-radius: var(--radius); cursor: pointer; transition: border-color .2s; position: relative; overflow: hidden; min-height: 120px; }
+    .upload-area:hover { border-color: var(--rose); }
+    .upload-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; padding: 1.75rem; text-align: center; }
+    .upload-placeholder p { font-size: 0.85rem; color: var(--warm-400); }
+    .upload-placeholder span { font-size: 0.72rem; color: var(--warm-200); }
+    .img-preview { position: relative; width: 100%; height: 150px; }
+    .img-preview img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; }
+    .upload-remove { position: absolute; top: 8px; right: 8px; background: rgba(42,33,24,.7); color: #fff; border: none; border-radius: 50%; width: 24px; height: 24px; font-size: 0.7rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .upload-progress { padding: 1rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; align-items: center; }
+    .upload-progress-bar { width: 100%; height: 4px; background: var(--parchment); border-radius: 2px; overflow: hidden; position: relative; }
+    .upload-progress-bar::after { content: ''; position: absolute; left: -100%; top: 0; height: 100%; width: 100%; background: var(--rose); animation: uploadSlide 1s ease-in-out infinite; }
+    @keyframes uploadSlide { to { left: 100%; } }
+
+    /* IMAGES SECTION */
+    .img-section-block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1.25rem; }
+    .img-upload-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+    .img-upload-card { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--cream); }
+    .img-upload-preview { width: 100%; aspect-ratio: 3/4; background: var(--cream-dark); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; opacity: 0.4; }
+    .img-upload-preview.has-image { opacity: 1; font-size: 0; }
+    .img-upload-preview::after { content: '📷'; }
+    .img-upload-preview.has-image::after { display: none; }
+    .img-upload-info { padding: 0.65rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .img-upload-name { font-size: 0.78rem; font-weight: 600; color: var(--ink); }
+    .img-upload-btn { padding: 0.4rem 0.75rem; background: var(--ink); color: var(--cream); border: none; border-radius: 4px; font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; cursor: pointer; text-align: center; }
+    .img-upload-btn:hover { background: var(--rose); }
+    .img-upload-btn:disabled { opacity: .6; cursor: not-allowed; }
+
+    /* CHATS */
+    .chats-layout { display: grid; grid-template-columns: 280px 1fr; gap: 1rem; height: calc(100vh - 200px); min-height: 400px; }
+    .chats-sessions { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; background: var(--surface); }
+    .chats-sessions-header { padding: 0.85rem 1rem; border-bottom: 1px solid var(--border); font-weight: 600; font-size: 0.82rem; background: var(--cream-dark); color: var(--ink); }
+    #chat-sessions-list { flex: 1; overflow-y: auto; }
+    .chats-window { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; background: var(--surface); }
+    .chats-window-header { padding: 0.85rem 1rem; border-bottom: 1px solid var(--border); background: var(--cream-dark); display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+    #admin-messages { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.6rem; }
+    #admin-reply-area { padding: 0.75rem; border-top: 1px solid var(--border); display: none; gap: 0.5rem; align-items: center; }
+    #admin-reply-input { flex: 1; padding: 0.55rem 0.85rem; border: 1px solid var(--border); border-radius: 8px; font-family: var(--font-body); font-size: 0.88rem; outline: none; background: var(--cream); }
+    .btn-send { background: var(--ink); color: #fff; border: none; padding: 0.55rem 1rem; border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-family: var(--font-body); white-space: nowrap; }
+    .btn-close-chat { background: #fee2e2; color: #b91c1c; border: none; padding: 0.35rem 0.85rem; border-radius: 6px; cursor: pointer; font-size: 0.78rem; font-family: var(--font-body); white-space: nowrap; }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 1.5rem; right: 1rem; left: 1rem; max-width: 340px; margin: 0 auto; background: var(--ink); color: var(--cream); padding: 0.85rem 1.25rem; border-radius: var(--radius); font-size: 0.88rem; z-index: 2000; transform: translateY(120px); opacity: 0; transition: all .3s; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { background: var(--green); }
+    .toast.error { background: var(--red); }
+
+    /* MOBILE */
+    @media (max-width: 640px) {
+      .admin-stats { grid-template-columns: 1fr; gap: 0.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .img-upload-grid { grid-template-columns: repeat(2, 1fr); }
+      .chats-layout { grid-template-columns: 1fr; grid-template-rows: 240px 1fr; }
+      .products-table th:nth-child(2), .products-table td:nth-child(2) { display: none; }
+      .admin-title { font-size: 1.3rem; }
+      .modal-body { padding: 1rem 1rem 1.25rem; }
+      .modal-header { padding: 1rem; }
+      .modal-footer { flex-direction: column-reverse; }
+      .btn-cancel, .btn-save { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <p class="login-logo">Aura Pink</p>
+    <p class="login-subtitle">Панель управления</p>
+    <div class="form-group">
+      <label for="login-email">Email</label>
+      <input type="email" id="login-email" placeholder="ваш@email.ru" autocomplete="email" />
+    </div>
+    <div class="form-group">
+      <label for="login-password">Пароль</label>
+      <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" />
+    </div>
+    <button class="btn-primary" id="login-btn">Войти</button>
+    <p class="login-error" id="login-error">Неверный email или пароль</p>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="admin-screen">
+  <header class="admin-header">
+    <a href="index.html" class="admin-header-logo" target="_blank">
+      Aura Pink
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:.6"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>
+    <div class="admin-header-right">
+      <span id="admin-email-label"></span>
+      <button class="btn-logout" id="logout-btn">Выйти</button>
+    </div>
+  </header>
+
+  <div class="admin-tabs">
+    <button class="admin-tab active" id="tab-products" onclick="switchTab('products')">Товары</button>
+    <button class="admin-tab" id="tab-images" onclick="switchTab('images')">Изображения</button>
+    <button class="admin-tab" id="tab-chats" onclick="switchTab('chats')">Чаты <span id="chats-badge" style="display:none;background:#c4927a;color:#fff;border-radius:999px;padding:1px 6px;font-size:0.68rem;margin-left:3px;"></span></button>
+  </div>
+
+  <!-- ТОВАРЫ -->
+  <div id="products-section">
+    <div class="admin-body">
+      <div class="admin-top">
+        <h1 class="admin-title">Управление товарами</h1>
+        <button class="btn-add" id="add-product-btn">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Добавить товар
+        </button>
+      </div>
+      <div class="admin-stats">
+        <div class="stat-card"><p class="stat-label">Всего товаров</p><p class="stat-value" id="stat-total">—</p></div>
+        <div class="stat-card"><p class="stat-label">В наличии</p><p class="stat-value" id="stat-in-stock">—</p></div>
+        <div class="stat-card"><p class="stat-label">Нет в наличии</p><p class="stat-value" id="stat-out">—</p></div>
+      </div>
+      <div class="products-table-wrap">
+        <table class="products-table">
+          <thead>
+            <tr>
+              <th>Фото</th>
+              <th>Название</th>
+              <th>Категория</th>
+              <th>Цена</th>
+              <th>Наличие</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody id="products-tbody">
+            <tr><td colspan="6"><div class="empty-state"><p>Загрузка...</p></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ИЗОБРАЖЕНИЯ -->
+  <div id="images-section" style="display:none">
+    <div class="admin-body">
+      <div class="admin-top"><h1 class="admin-title">Изображения сайта</h1></div>
+      <p style="color:var(--warm-400);font-size:.875rem;margin-bottom:1.25rem">Загрузите фотографии — они сразу появятся на главной странице.</p>
+
+      <div class="img-section-block">
+        <p class="stat-label" style="margin-bottom:0.85rem">Карточки категорий</p>
+        <div class="img-upload-grid">
+          <div class="img-upload-card" data-slot="category-dress">
+            <div class="img-upload-preview" id="prev-category-dress"></div>
+            <div class="img-upload-info"><p class="img-upload-name">Платья</p><button class="img-upload-btn">Загрузить фото</button><input type="file" accept="image/*" class="img-file-input" style="display:none" /></div>
+          </div>
+          <div class="img-upload-card" data-slot="category-suit">
+            <div class="img-upload-preview" id="prev-category-suit"></div>
+            <div class="img-upload-info"><p class="img-upload-name">Костюмы</p><button class="img-upload-btn">Загрузить фото</button><input type="file" accept="image/*" class="img-file-input" style="display:none" /></div>
+          </div>
+          <div class="img-upload-card" data-slot="category-blouse">
+            <div class="img-upload-preview" id="prev-category-blouse"></div>
+            <div class="img-upload-info"><p class="img-upload-name">Блузы &amp; Рубашки</p><button class="img-upload-btn">Загрузить фото</button><input type="file" accept="image/*" class="img-file-input" style="display:none" /></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="img-section-block">
+        <p class="stat-label" style="margin-bottom:0.85rem">Блок «О бренде»</p>
+        <div class="img-upload-grid" style="grid-template-columns: 1fr">
+          <div class="img-upload-card" data-slot="about-main" style="max-width:260px">
+            <div class="img-upload-preview" id="prev-about-main"></div>
+            <div class="img-upload-info"><p class="img-upload-name">Главное фото</p><button class="img-upload-btn">Загрузить фото</button><input type="file" accept="image/*" class="img-file-input" style="display:none" /></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="img-section-block">
+        <p class="stat-label" style="margin-bottom:0.85rem">Lookbook SS'26 (карусель)</p>
+        <div class="img-upload-grid">
+          <div class="img-upload-card" data-slot="look-1"><div class="img-upload-preview" id="prev-look-1"></div><div class="img-upload-info"><p class="img-upload-name">Образ 1</p><button class="img-upload-btn">Загрузить фото</button><input type="file" accept="image/*" class="img-file-input" style="display:none" /></div></div>
+          <div class="img-upload-card" data-slot="look-2"><div class="img-upload-preview" id="prev-look-2"></div><div class="img-upload-info"><p class="img-upload-name">Образ 2</p><button class="img-upload-btn">Загрузить фото</button><input type="file" accept="image/*" class="img-file-input" style="display:none" /></div></div>
+          <div class="img-upload-card" data-slot="look-3"><div class="img-upload-preview" id="prev-look-3"></div><div class="img-upload-info"><p class="img-upload-name">Образ 3</p><button class="img-upload-btn">Загрузить фото</button><input type="file" accept="image/*" class="img-file-input" style="display:none" /></div></div>
+          <div class="img-upload-card" data-slot="look-4"><div class="img-upload-preview" id="prev-look-4"></div><div class="img-upload-info"><p class="img-upload-name">Образ 4</p><button class="img-upload-btn">Загрузить фото</button><input type="file" accept="image/*" class="img-file-input" style="display:none" /></div></div>
+          <div class="img-upload-card" data-slot="look-5"><div class="img-upload-preview" id="prev-look-5"></div><div class="img-upload-info"><p class="img-upload-name">Образ 5</p><button class="img-upload-btn">Загрузить фото</button><input type="file" accept="image/*" class="img-file-input" style="display:none" /></div></div>
+          <div class="img-upload-card" data-slot="look-6"><div class="img-upload-preview" id="prev-look-6"></div><div class="img-upload-info"><p class="img-upload-name">Образ 6</p><button class="img-upload-btn">Загрузить фото</button><input type="file" accept="image/*" class="img-file-input" style="display:none" /></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ЧАТЫ -->
+  <div id="chats-section" style="display:none">
+    <div class="admin-body">
+      <div class="admin-top">
+        <h1 class="admin-title">Чаты поддержки</h1>
+        <button class="btn-add" onclick="loadChats()">Обновить</button>
+      </div>
+      <div class="chats-layout">
+        <div class="chats-sessions">
+          <div class="chats-sessions-header" style="display:flex;align-items:center;justify-content:space-between;">
+            <span>Обращения</span>
+            <button id="select-mode-btn" onclick="toggleSelectMode()" style="background:none;border:1px solid var(--border);border-radius:4px;padding:0.25rem 0.6rem;font-size:0.72rem;font-family:var(--font-body);cursor:pointer;color:var(--warm-400);">Выбрать</button>
+          </div>
+          <div id="bulk-delete-bar" style="display:none;padding:0.6rem 1rem;background:#fee2e2;border-bottom:1px solid #fca5a5;align-items:center;justify-content:space-between;gap:0.5rem;">
+            <span id="selected-count" style="font-size:0.8rem;color:#b91c1c;font-weight:600;">0 выбрано</span>
+            <button onclick="deleteSelected()" style="background:#b91c1c;color:#fff;border:none;padding:0.3rem 0.85rem;border-radius:4px;font-size:0.78rem;cursor:pointer;font-family:var(--font-body);">Удалить выбранные</button>
+          </div>
+          <div id="chat-sessions-list"></div>
+        </div>
+        <div class="chats-window">
+          <div class="chats-window-header">
+            <span id="chat-header-title" style="font-weight:600;font-size:0.88rem;color:var(--ink)">Выберите обращение</span>
+            <button id="close-chat-btn" class="btn-close-chat" onclick="closeCurrentChat()" style="display:none">Закрыть обращение</button>
+          </div>
+          <div id="admin-messages">
+            <p style="color:#aaa;text-align:center;margin:auto;font-size:0.85rem">Выберите чат</p>
+          </div>
+          <div id="admin-reply-area">
+            <input id="admin-reply-input" placeholder="Ответить клиенту…" />
+            <button class="btn-send" onclick="sendAdminReply()">Отправить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /admin-screen -->
+
+<!-- MODAL -->
+<div class="modal-overlay" id="product-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="modal-title">Добавить товар</h2>
+      <button class="modal-close" id="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="product-id" />
+      <div class="form-group">
+        <label for="product-name">Название *</label>
+        <input type="text" id="product-name" placeholder="Платье летнее" />
+      </div>
+      <div class="form-group">
+        <label for="product-description">Описание</label>
+        <textarea id="product-description" placeholder="Лёгкое платье из натурального льна..."></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="product-price">Цена (₽) *</label>
+          <input type="number" id="product-price" placeholder="12900" min="0" />
+        </div>
+        <div class="form-group">
+          <label for="product-old-price">Старая цена (₽)</label>
+          <input type="number" id="product-old-price" placeholder="15000" min="0" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="product-category">Категория</label>
+        <select id="product-category">
+          <option value="dress">Платья</option>
+          <option value="suit">Костюмы</option>
+          <option value="blouse">Блузы</option>
+          <option value="skirt">Юбки</option>
+          <option value="other">Другое</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Фото товара</label>
+        <div class="upload-area" id="upload-area">
+          <input type="file" id="product-image-file" accept="image/*" style="display:none" />
+          <div class="upload-placeholder" id="upload-placeholder">
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><path d="M16 4v16M8 12l8-8 8 8" stroke="#B8A99A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 24v2a2 2 0 002 2h20a2 2 0 002-2v-2" stroke="#B8A99A" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <p>Нажмите или перетащите фото</p>
+            <span>JPG, PNG, WEBP до 5 MB</span>
+          </div>
+          <div class="img-preview" id="img-preview" style="display:none">
+            <img id="img-preview-img" src="" alt="" />
+            <button type="button" class="upload-remove" id="upload-remove">✕</button>
+          </div>
+          <div class="upload-progress" id="upload-progress" style="display:none">
+            <div class="upload-progress-bar"></div>
+            <span>Загружаем...</span>
+          </div>
+        </div>
+        <input type="hidden" id="product-image" />
+      </div>
+      <div class="form-group">
+        <label class="form-check">
+          <input type="checkbox" id="product-in-stock" checked />
+          Товар в наличии
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" id="modal-cancel">Отмена</button>
+        <button class="btn-save" id="modal-save">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const SUPABASE_URL = 'https://acylsytogrgyesrcbthx.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_sTp-NwKK2dqaMjjMDcqDsA_HSl45kVD';
+
+  let accessToken = null;
+  let products = [];
+  let editingId = null;
+
+  // AUTH
+  document.getElementById('login-btn').addEventListener('click', login);
+  document.getElementById('login-password').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+
+  async function login() {
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    const btn = document.getElementById('login-btn');
+    const err = document.getElementById('login-error');
+    btn.textContent = 'Входим...'; btn.disabled = true; err.style.display = 'none';
+    try {
+      const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.access_token) throw new Error();
+      accessToken = data.access_token;
+      document.getElementById('admin-email-label').textContent = email;
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('admin-screen').style.display = 'block';
+      loadProducts();
+    } catch { err.style.display = 'block'; }
+    finally { btn.textContent = 'Войти'; btn.disabled = false; }
+  }
+
+  document.getElementById('logout-btn').addEventListener('click', () => {
+    accessToken = null;
+    document.getElementById('admin-screen').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'flex';
+  });
+
+  // PRODUCTS
+  async function apiGet(path) {
+    const res = await fetch(`${SUPABASE_URL}${path}`, { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${accessToken}` } });
+    return res.json();
+  }
+  async function apiPatch(path, body) {
+    return fetch(`${SUPABASE_URL}${path}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${accessToken}`, 'Prefer': 'return=representation' }, body: JSON.stringify(body) });
+  }
+  async function apiDelete(path) {
+    return fetch(`${SUPABASE_URL}${path}`, { method: 'DELETE', headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${accessToken}` } });
+  }
+
+  async function loadProducts() {
+    const data = await apiGet('/rest/v1/products?order=created_at.desc');
+    products = Array.isArray(data) ? data : [];
+    renderTable(); updateStats();
+  }
+
+  function updateStats() {
+    document.getElementById('stat-total').textContent = products.length;
+    document.getElementById('stat-in-stock').textContent = products.filter(p => p.in_stock).length;
+    document.getElementById('stat-out').textContent = products.filter(p => !p.in_stock).length;
+  }
+
+  function categoryLabel(cat) {
+    return { dress:'Платья', suit:'Костюмы', blouse:'Блузы', skirt:'Юбки', other:'Другое' }[cat] || cat || '—';
+  }
+
+  function renderTable() {
+    const tbody = document.getElementById('products-tbody');
+    if (!products.length) {
+      tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><p>Товаров пока нет</p><button class="btn-add" onclick="openModal()">Добавить первый товар</button></div></td></tr>`;
+      return;
+    }
+    tbody.innerHTML = products.map(p => `
+      <tr>
+        <td>${p.image_url ? `<img src="${p.image_url}" class="product-thumb" alt="" onerror="this.style.display='none'">` : `<div class="product-thumb-placeholder">📷</div>`}</td>
+        <td><strong>${p.name}</strong>${p.description ? `<br><small style="color:#8A7869">${p.description.substring(0,40)}${p.description.length>40?'...':''}</small>` : ''}</td>
+        <td>${categoryLabel(p.category)}</td>
+        <td><strong>${Number(p.price).toLocaleString('ru-RU')} ₽</strong>${p.old_price ? `<br><small style="text-decoration:line-through;color:#B8A99A">${Number(p.old_price).toLocaleString('ru-RU')} ₽</small>` : ''}</td>
+        <td>${p.in_stock ? `<span class="badge-in">✓ Есть</span>` : `<span class="badge-out">✗ Нет</span>`}</td>
+        <td><div class="table-actions"><button class="btn-edit" onclick="openModal('${p.id}')">Изменить</button><button class="btn-delete" onclick="deleteProduct('${p.id}','${p.name.replace(/'/g,"\\'")}')">Удалить</button></div></td>
+      </tr>`).join('');
+  }
+
+  // MODAL
+  document.getElementById('add-product-btn').addEventListener('click', () => openModal());
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  document.getElementById('modal-cancel').addEventListener('click', closeModal);
+  document.getElementById('modal-save').addEventListener('click', saveProduct);
+  document.getElementById('product-modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+
+  const uploadArea = document.getElementById('upload-area');
+  const fileInput = document.getElementById('product-image-file');
+  uploadArea.addEventListener('click', e => { if (e.target.id !== 'upload-remove') fileInput.click(); });
+  uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.style.borderColor = 'var(--rose)'; });
+  uploadArea.addEventListener('dragleave', () => { uploadArea.style.borderColor = ''; });
+  uploadArea.addEventListener('drop', e => { e.preventDefault(); uploadArea.style.borderColor = ''; const f = e.dataTransfer.files[0]; if (f) handleFileSelect(f); });
+  fileInput.addEventListener('change', e => { const f = e.target.files[0]; if (f) handleFileSelect(f); });
+  document.getElementById('upload-remove').addEventListener('click', () => {
+    document.getElementById('product-image').value = '';
+    document.getElementById('img-preview').style.display = 'none';
+    document.getElementById('upload-placeholder').style.display = 'flex';
+    fileInput.value = ''; uploadArea._pendingFile = null;
+  });
+
+  function handleFileSelect(file) {
+    if (file.size > 5*1024*1024) { showToast('Файл слишком большой (макс 5 MB)', 'error'); return; }
+    const reader = new FileReader();
+    reader.onload = e => {
+      document.getElementById('img-preview-img').src = e.target.result;
+      document.getElementById('img-preview').style.display = 'block';
+      document.getElementById('upload-placeholder').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+    uploadArea._pendingFile = file;
+  }
+
+  async function uploadImageIfNeeded() {
+    const file = uploadArea._pendingFile;
+    if (!file) return document.getElementById('product-image').value || null;
+    document.getElementById('upload-progress').style.display = 'flex';
+    document.getElementById('img-preview').style.display = 'none';
+    try {
+      const ext = file.name.split('.').pop();
+      const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+      const res = await fetch(`${SUPABASE_URL}/storage/v1/object/products/${filename}`, {
+        method: 'POST', headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${accessToken}`, 'Content-Type': file.type, 'x-upsert': 'true' }, body: file
+      });
+      if (!res.ok) throw new Error();
+      const url = `${SUPABASE_URL}/storage/v1/object/public/products/${filename}`;
+      document.getElementById('product-image').value = url;
+      uploadArea._pendingFile = null;
+      document.getElementById('upload-progress').style.display = 'none';
+      document.getElementById('img-preview').style.display = 'block';
+      return url;
+    } catch {
+      document.getElementById('upload-progress').style.display = 'none';
+      document.getElementById('img-preview').style.display = 'block';
+      showToast('Ошибка загрузки фото', 'error'); return null;
+    }
+  }
+
+  function openModal(id = null) {
+    editingId = id;
+    const title = document.getElementById('modal-title');
+    if (id) {
+      const p = products.find(x => x.id === id); if (!p) return;
+      title.textContent = 'Редактировать товар';
+      document.getElementById('product-id').value = p.id;
+      document.getElementById('product-name').value = p.name;
+      document.getElementById('product-description').value = p.description || '';
+      document.getElementById('product-price').value = p.price;
+      document.getElementById('product-old-price').value = p.old_price || '';
+      document.getElementById('product-category').value = p.category || 'dress';
+      document.getElementById('product-image').value = p.image_url || '';
+      document.getElementById('product-in-stock').checked = p.in_stock;
+      uploadArea._pendingFile = null;
+      if (p.image_url) { document.getElementById('img-preview-img').src = p.image_url; document.getElementById('img-preview').style.display = 'block'; document.getElementById('upload-placeholder').style.display = 'none'; }
+      else { document.getElementById('img-preview').style.display = 'none'; document.getElementById('upload-placeholder').style.display = 'flex'; }
+    } else {
+      title.textContent = 'Добавить товар';
+      ['product-id','product-name','product-description','product-price','product-old-price','product-image'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('product-category').value = 'dress';
+      document.getElementById('product-in-stock').checked = true;
+      document.getElementById('img-preview').style.display = 'none';
+      document.getElementById('upload-placeholder').style.display = 'flex';
+      uploadArea._pendingFile = null;
+    }
+    document.getElementById('product-modal').classList.add('open');
+  }
+
+  function closeModal() { document.getElementById('product-modal').classList.remove('open'); editingId = null; }
+
+  async function saveProduct() {
+    const name = document.getElementById('product-name').value.trim();
+    const price = parseFloat(document.getElementById('product-price').value);
+    if (!name || isNaN(price)) { showToast('Заполните название и цену', 'error'); return; }
+    const imageUrl = await uploadImageIfNeeded();
+    const body = { name, description: document.getElementById('product-description').value.trim() || null, price, old_price: parseFloat(document.getElementById('product-old-price').value) || null, category: document.getElementById('product-category').value, image_url: imageUrl, in_stock: document.getElementById('product-in-stock').checked };
+    const btn = document.getElementById('modal-save');
+    btn.disabled = true; btn.textContent = 'Сохраняем...';
+    try {
+      let res;
+      if (editingId) { res = await apiPatch(`/rest/v1/products?id=eq.${editingId}`, body); }
+      else { res = await fetch(`${SUPABASE_URL}/rest/v1/products`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${accessToken}`, 'Prefer': 'return=representation' }, body: JSON.stringify(body) }); }
+      if (!res.ok) throw new Error();
+      showToast(editingId ? 'Товар обновлён ✓' : 'Товар добавлен ✓', 'success');
+      closeModal(); loadProducts();
+    } catch { showToast('Ошибка при сохранении', 'error'); }
+    finally { btn.disabled = false; btn.textContent = 'Сохранить'; }
+  }
+
+  async function deleteProduct(id, name) {
+    if (!confirm(`Удалить товар "${name}"?`)) return;
+    try {
+      const res = await apiDelete(`/rest/v1/products?id=eq.${id}`);
+      if (!res.ok) throw new Error();
+      showToast('Товар удалён', 'success'); loadProducts();
+    } catch { showToast('Ошибка при удалении', 'error'); }
+  }
+
+  // TABS
+  function switchTab(tab) {
+    ['products','images','chats'].forEach(t => {
+      document.getElementById(`tab-${t}`).classList.toggle('active', t === tab);
+      document.getElementById(`${t}-section`).style.display = t === tab ? 'block' : 'none';
+    });
+    if (tab === 'images') loadSiteImages();
+    if (tab === 'chats') { loadChats(); chatListInterval = setInterval(loadChats, 5000); }
+    else { if (chatListInterval) { clearInterval(chatListInterval); chatListInterval = null; } }
+  }
+
+  // SITE IMAGES
+  async function loadSiteImages() {
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/site_images?select=id,image_url`, { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${accessToken}` } });
+      const rows = await res.json();
+      rows.forEach(row => {
+        if (row.image_url) {
+          const prev = document.getElementById(`prev-${row.id}`);
+          if (prev) { prev.style.backgroundImage = `url('${row.image_url}')`; prev.classList.add('has-image'); }
+        }
+      });
+    } catch(e) { console.error(e); }
+  }
+
+  document.querySelectorAll('.img-upload-btn').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('.img-upload-card').querySelector('.img-file-input').click());
+  });
+
+  document.querySelectorAll('.img-file-input').forEach(input => {
+    input.addEventListener('change', async e => {
+      const file = e.target.files[0]; if (!file) return;
+      const slot = input.closest('.img-upload-card').dataset.slot;
+      const btn = input.closest('.img-upload-card').querySelector('.img-upload-btn');
+      const prev = document.getElementById(`prev-${slot}`);
+      btn.textContent = 'Загружаем...'; btn.disabled = true;
+      try {
+        const ext = file.name.split('.').pop();
+        const filename = `site/${slot}-${Date.now()}.${ext}`;
+        const upRes = await fetch(`${SUPABASE_URL}/storage/v1/object/products/${filename}`, { method: 'POST', headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${accessToken}`, 'Content-Type': file.type, 'x-upsert': 'true' }, body: file });
+        if (!upRes.ok) throw new Error('Ошибка загрузки');
+        const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/products/${filename}`;
+        const dbRes = await fetch(`${SUPABASE_URL}/rest/v1/site_images?id=eq.${slot}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${accessToken}`, 'Prefer': 'return=representation' }, body: JSON.stringify({ image_url: publicUrl, updated_at: new Date().toISOString() }) });
+        if (!dbRes.ok) throw new Error('Ошибка сохранения');
+        prev.style.backgroundImage = `url('${publicUrl}')`; prev.classList.add('has-image');
+        showToast('Фото обновлено ✓', 'success');
+      } catch(err) { showToast('Ошибка: ' + err.message, 'error'); }
+      finally { btn.textContent = 'Загрузить фото'; btn.disabled = false; input.value = ''; }
+    });
+  });
+
+  // CHATS
+  let currentSessionId = null, chatPollInterval = null, lastAdminMsgTime = null, chatListInterval = null;
+  let selectMode = false, selectedIds = new Set();
+
+  function toggleSelectMode() {
+    selectMode = !selectMode;
+    selectedIds.clear();
+    const btn = document.getElementById('select-mode-btn');
+    const bar = document.getElementById('bulk-delete-bar');
+    btn.textContent = selectMode ? 'Отмена' : 'Выбрать';
+    btn.style.color = selectMode ? '#b91c1c' : '';
+    btn.style.borderColor = selectMode ? '#fca5a5' : '';
+    bar.style.display = selectMode ? 'flex' : 'none';
+    updateSelectedCount();
+    loadChats();
+  }
+
+  function updateSelectedCount() {
+    document.getElementById('selected-count').textContent = `${selectedIds.size} выбрано`;
+  }
+
+  async function deleteSelected() {
+    if (!selectedIds.size) return;
+    if (!confirm(`Удалить ${selectedIds.size} обращений?`)) return;
+    for (const sid of selectedIds) {
+      await fetch(`${SUPABASE_URL}/rest/v1/chat_messages?session_id=eq.${sid}`, { method: 'DELETE', headers: chatHeaders });
+      await fetch(`${SUPABASE_URL}/rest/v1/chat_sessions?id=eq.${sid}`, { method: 'DELETE', headers: chatHeaders });
+      if (currentSessionId === sid) {
+        currentSessionId = null;
+        if (chatPollInterval) { clearInterval(chatPollInterval); chatPollInterval = null; }
+        document.getElementById('chat-header-title').textContent = 'Выберите обращение';
+        document.getElementById('admin-messages').innerHTML = '<p style="color:#aaa;text-align:center;margin:auto;font-size:0.85rem">Выберите чат</p>';
+        document.getElementById('close-chat-btn').style.display = 'none';
+        document.getElementById('admin-reply-area').style.display = 'none';
+      }
+    }
+    selectedIds.clear();
+    toggleSelectMode();
+  }
+
+  async function loadChats() {
+    try {
+      const r = await fetch(`${SUPABASE_URL}/rest/v1/chat_sessions?order=updated_at.desc`, { headers: chatHeaders });
+      const sessions = await r.json();
+      const list = document.getElementById('chat-sessions-list'); if (!list) return;
+      const openCount = sessions.filter(s => s.status === 'open').length;
+      const badge = document.getElementById('chats-badge');
+      if (badge) { badge.textContent = openCount; badge.style.display = openCount > 0 ? 'inline' : 'none'; }
+      list.innerHTML = sessions.length === 0 ? '<p style="padding:1rem;color:#aaa;font-size:0.82rem;">Нет обращений</p>' : '';
+      sessions.forEach(s => {
+        const clientNum = s.client_id.replace('client_', '#').slice(0, 12);
+        const isSelected = selectedIds.has(s.id);
+        const div = document.createElement('div');
+        div.style.cssText = `padding:0.75rem 1rem;cursor:pointer;border-bottom:1px solid var(--border);transition:background 0.15s;display:flex;align-items:flex-start;gap:0.6rem;${currentSessionId === s.id ? 'background:#f5f0eb;' : ''}${isSelected ? 'background:#fee2e2;' : ''}`;
+
+        if (selectMode) {
+          const cb = document.createElement('input');
+          cb.type = 'checkbox'; cb.checked = isSelected;
+          cb.style.cssText = 'margin-top:3px;flex-shrink:0;accent-color:#b91c1c;width:15px;height:15px;';
+          cb.onchange = () => {
+            if (cb.checked) selectedIds.add(s.id); else selectedIds.delete(s.id);
+            div.style.background = cb.checked ? '#fee2e2' : '';
+            updateSelectedCount();
+          };
+          div.appendChild(cb);
+        }
+
+        const info = document.createElement('div');
+        info.style.cssText = 'flex:1;min-width:0;';
+        info.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.2rem;"><span style="font-weight:600;font-size:0.82rem;">Клиент ${clientNum}</span><span style="font-size:0.68rem;padding:2px 7px;border-radius:999px;background:${s.status==='open'?'#dcfce7':'#f1f5f9'};color:${s.status==='open'?'#166534':'#64748b'};">${s.status==='open'?'Открыт':'Закрыт'}</span></div><p style="font-size:0.78rem;color:#888;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${s.last_message||'Нет сообщений'}</p>`;
+        div.appendChild(info);
+
+        if (!selectMode) {
+          div.onmouseenter = () => { if (currentSessionId !== s.id) div.style.background = '#faf8f6'; };
+          div.onmouseleave = () => { if (currentSessionId !== s.id) div.style.background = ''; };
+          div.onclick = () => openChat(s);
+        } else {
+          div.onclick = () => {
+            const cb = div.querySelector('input[type=checkbox]');
+            cb.checked = !cb.checked; cb.dispatchEvent(new Event('change'));
+          };
+        }
+        list.appendChild(div);
+      });
+    } catch(e) { console.error('loadChats error', e); }
+  }
+
+  async function openChat(session) {
+    currentSessionId = session.id; lastAdminMsgTime = null;
+    if (chatPollInterval) clearInterval(chatPollInterval);
+    const title = document.getElementById('chat-header-title');
+    const closeBtn = document.getElementById('close-chat-btn');
+    const replyArea = document.getElementById('admin-reply-area');
+    const clientNum = session.client_id.replace('client_', '#').slice(0, 12);
+    if (title) title.textContent = `Клиент ${clientNum} — ${session.status === 'open' ? 'открыт' : 'закрыт'}`;
+    if (closeBtn) closeBtn.style.display = session.status === 'open' ? 'inline-block' : 'none';
+    if (replyArea) replyArea.style.display = session.status === 'open' ? 'flex' : 'none';
+    await renderChatMessages(session.id); loadChats();
+    chatPollInterval = setInterval(() => renderNewMessages(session.id), 3000);
+  }
+
+  const chatHeaders = { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation' };
+
+  async function renderChatMessages(sid) {
+    const box = document.getElementById('admin-messages'); if (!box) return;
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/chat_messages?session_id=eq.${sid}&order=created_at.asc`, { headers: chatHeaders });
+    const msgs = await r.json();
+    box.innerHTML = ''; msgs.forEach(m => appendAdminMsg(m));
+    if (msgs.length > 0) lastAdminMsgTime = msgs[msgs.length - 1].created_at;
+    box.scrollTop = box.scrollHeight;
+  }
+
+  async function renderNewMessages(sid) {
+    if (!lastAdminMsgTime) return;
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/chat_messages?session_id=eq.${sid}&created_at=gt.${encodeURIComponent(lastAdminMsgTime)}&order=created_at.asc`, { headers: chatHeaders });
+    const msgs = await r.json();
+    const box = document.getElementById('admin-messages');
+    msgs.forEach(m => { appendAdminMsg(m); lastAdminMsgTime = m.created_at; });
+    if (msgs.length > 0 && box) box.scrollTop = box.scrollHeight;
+  }
+
+  function appendAdminMsg(m) {
+    const box = document.getElementById('admin-messages'); if (!box) return;
+    const isClient = m.sender === 'client';
+    const div = document.createElement('div');
+    div.style.cssText = `display:flex;justify-content:${isClient ? 'flex-start' : 'flex-end'};`;
+    const bubble = document.createElement('div');
+    bubble.style.cssText = `max-width:75%;padding:0.55rem 0.85rem;border-radius:${isClient ? '4px 12px 12px 12px' : '12px 4px 12px 12px'};background:${isClient ? '#f5f0eb' : 'var(--ink)'};color:${isClient ? 'var(--ink)' : '#fff'};font-size:0.85rem;line-height:1.4;`;
+    bubble.textContent = m.text;
+    div.appendChild(bubble); box.appendChild(div);
+  }
+
+  async function sendAdminReply() {
+    const input = document.getElementById('admin-reply-input');
+    const text = input.value.trim();
+    if (!text || !currentSessionId) return;
+    input.value = '';
+    try {
+      await fetch(`${SUPABASE_URL}/rest/v1/chat_messages`, { method: 'POST', headers: chatHeaders, body: JSON.stringify({ session_id: currentSessionId, sender: 'admin', text }) });
+      await fetch(`${SUPABASE_URL}/rest/v1/chat_sessions?id=eq.${currentSessionId}`, { method: 'PATCH', headers: chatHeaders, body: JSON.stringify({ last_message: '✓ ' + text, updated_at: new Date().toISOString() }) });
+      await renderNewMessages(currentSessionId);
+    } catch(e) { console.error('Reply error', e); }
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Enter' && document.activeElement?.id === 'admin-reply-input') sendAdminReply(); });
+
+  async function closeCurrentChat() {
+    if (!currentSessionId) return;
+    if (!confirm('Закрыть и удалить это обращение?')) return;
+    const sid = currentSessionId;
+    // Удаляем сообщения, потом сессию
+    await fetch(`${SUPABASE_URL}/rest/v1/chat_messages?session_id=eq.${sid}`, { method: 'DELETE', headers: chatHeaders });
+    await fetch(`${SUPABASE_URL}/rest/v1/chat_sessions?id=eq.${sid}`, { method: 'DELETE', headers: chatHeaders });
+    // Сбрасываем окно чата
+    currentSessionId = null;
+    if (chatPollInterval) { clearInterval(chatPollInterval); chatPollInterval = null; }
+    document.getElementById('close-chat-btn').style.display = 'none';
+    document.getElementById('admin-reply-area').style.display = 'none';
+    document.getElementById('chat-header-title').textContent = 'Выберите обращение';
+    document.getElementById('admin-messages').innerHTML = '<p style="color:#aaa;text-align:center;margin:auto;font-size:0.85rem">Выберите чат</p>';
+    loadChats();
+  }
+
+  // TOAST
+  function showToast(msg, type = '') {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg; toast.className = `toast ${type} show`;
+    setTimeout(() => toast.className = 'toast', 3000);
+  }
+</script>
+</body>
+</html>

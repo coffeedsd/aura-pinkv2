@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+      m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109393999','ym');
+    ym(109393999, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:'dataLayer', referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109393999" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Публичная оферта — Aura Pink</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .oferta-page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: var(--space-16) var(--space-8);
+    }
+
+    .oferta-hero {
+      margin-bottom: var(--space-12);
+      padding-bottom: var(--space-8);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .oferta-hero h1 {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 400;
+      color: var(--color-ink);
+      margin-bottom: var(--space-3);
+    }
+
+    .oferta-meta {
+      font-size: var(--text-sm);
+      color: var(--color-text-soft);
+    }
+
+    .oferta-placeholder {
+      background: var(--color-cream-dark);
+      border: 2px dashed var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-16) var(--space-8);
+      text-align: center;
+      color: var(--color-text-soft);
+    }
+
+    .oferta-placeholder svg {
+      color: var(--color-rose-light);
+      margin-bottom: var(--space-4);
+    }
+
+    .oferta-placeholder h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 400;
+      color: var(--color-ink);
+      margin-bottom: var(--space-3);
+    }
+
+    .oferta-placeholder p {
+      font-size: var(--text-sm);
+      line-height: 1.7;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    /* Стили для будущего текста */
+    .oferta-content h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 400;
+      color: var(--color-ink);
+      margin: var(--space-8) 0 var(--space-3);
+    }
+
+    .oferta-content p {
+      font-size: var(--text-sm);
+      color: var(--color-text-soft);
+      line-height: 1.9;
+      margin-bottom: var(--space-4);
+    }
+
+    .oferta-content ol,
+    .oferta-content ul {
+      padding-left: var(--space-6);
+      margin-bottom: var(--space-4);
+    }
+
+    .oferta-content li {
+      font-size: var(--text-sm);
+      color: var(--color-text-soft);
+      line-height: 1.9;
+      margin-bottom: var(--space-2);
+    }
+
+    @media (max-width: 640px) {
+      .oferta-page { padding: var(--space-8) var(--space-4); }
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    main {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <nav class="nav-left">
+        <a href="catalog.html" class="nav-link">Каталог</a>
+        <a href="index.html#about" class="nav-link">О марке</a>
+      </nav>
+      <a href="index.html" class="logo" aria-label="Aura Pink — на главную">
+        <span class="logo-text">Aura Pink</span>
+      </a>
+      <nav class="nav-right">
+        <a href="delivery.html" class="nav-link">Доставка</a>
+        <button class="nav-icon-btn cart-btn" aria-label="Корзина" id="cart-toggle">
+          <span class="cart-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>
+          <span class="cart-count" id="cart-count">0</span>
+        </button>
+        <button class="burger" aria-label="Меню" id="burger"><span></span><span></span><span></span></button>
+      </nav>
+    </div>
+
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+      <a href="catalog.html" class="mobile-nav-link">Каталог</a>
+      <a href="delivery.html" class="mobile-nav-link">Доставка</a>
+      <a href="contacts.html" class="mobile-nav-link">Контакты</a>
+    </div>
+
+  <main>
+    <div class="oferta-page">
+
+      <div class="oferta-hero reveal">
+        <p class="section-eyebrow">Документы</p>
+        <h1>Публичная оферта</h1>
+        <p class="oferta-meta">Текст будет добавлен позднее</p>
+      </div>
+
+      <!-- Текст оферты -->
+      <div class="oferta-content" id="oferta-content">
+        <p style="color:var(--color-text-soft);font-size:var(--text-sm);line-height:1.9">Текст публичной оферты будет размещён здесь.</p>
+      </div>
+
+    </div>
+  </main>
+  <!-- ─── КНОПКА НАВЕРХ ────────────────────────────────── -->
+  <button class="back-to-top" id="back-to-top" aria-label="Наверх">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo">Aura Pink</a>
+          <p class="footer-tagline">Тихая роскошь.<br>Натуральные ткани.</p>
+        </div>
+        <nav class="footer-nav">
+          <div class="footer-nav-col">
+            <p class="footer-nav-title">Покупателям</p>
+            <a href="delivery.html" class="footer-link">Доставка и оплата</a>
+            <a href="catalog.html" class="footer-link">Каталог</a>
+            <a href="contacts.html" class="footer-link">Контакты</a>
+          </div>
+          <div class="footer-nav-col">
+            <p class="footer-nav-title">Документы</p>
+            <a href="privacy.html" class="footer-link">Конфиденциальность</a>
+            <a href="oferta.html" class="footer-link" style="color:var(--color-rose)">Публичная оферта</a>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Aura Pink</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    // Back to top
+    const _btt = document.getElementById('back-to-top');
+    if (_btt) {
+      window.addEventListener('scroll', () => {
+        _btt.classList.toggle('visible', window.scrollY > 300);
+      }, { passive: true });
+      _btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
+  </script>
+  <script>
+    // Burger menu
+    (function() {
+      const burger = document.getElementById('burger');
+      const mobileNav = document.getElementById('mobile-nav');
+      if (!burger || !mobileNav) return;
+      let isOpen = false;
+      function toggle() {
+        isOpen = !isOpen;
+        burger.classList.toggle('open', isOpen);
+        mobileNav.classList.toggle('open', isOpen);
+        mobileNav.setAttribute('aria-hidden', String(!isOpen));
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      }
+      burger.addEventListener('click', toggle);
+      mobileNav.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => { if (isOpen) toggle(); });
+      });
+    })();
+  </script>
+</body>
+</html>

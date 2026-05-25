@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+      m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109393999','ym');
+    ym(109393999, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:'dataLayer', referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109393999" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Контакты — Aura Pink</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .contacts-page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: var(--space-16) var(--space-8);
+    }
+
+    .contacts-hero {
+      text-align: center;
+      margin-bottom: var(--space-16);
+    }
+
+    .contacts-hero h1 {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 400;
+      color: var(--color-ink);
+      margin-bottom: var(--space-4);
+    }
+
+    .contacts-hero p {
+      font-size: var(--text-md);
+      color: var(--color-text-soft);
+      line-height: 1.7;
+    }
+
+    /* Layout */
+    .contacts-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+      margin-bottom: var(--space-16);
+    }
+
+    /* Cards */
+    .contact-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+
+    .contact-card-title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 400;
+      color: var(--color-ink);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+    }
+
+    .contact-item-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      background: var(--color-cream-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--color-rose);
+    }
+
+    .contact-item-body {}
+
+    .contact-item-label {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-soft);
+      margin-bottom: var(--space-1);
+    }
+
+    .contact-item-value {
+      font-size: var(--text-base);
+      color: var(--color-ink);
+      text-decoration: none;
+      transition: color var(--t-fast);
+    }
+
+    .contact-item-value:hover { color: var(--color-rose); }
+
+    .contact-item-sub {
+      font-size: var(--text-sm);
+      color: var(--color-text-soft);
+      margin-top: var(--space-1);
+    }
+
+    /* Social */
+    .social-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      border: 1.5px solid var(--color-border);
+      border-radius: 100px;
+      font-size: var(--text-sm);
+      color: var(--color-ink);
+      text-decoration: none;
+      transition: border-color var(--t-fast), background var(--t-fast);
+    }
+
+    .social-link:hover {
+      border-color: var(--color-rose);
+      background: var(--color-rose-light);
+    }
+
+    /* Form */
+    .contact-form-wrap {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+    }
+
+    .contact-form-title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 400;
+      color: var(--color-ink);
+      margin-bottom: var(--space-6);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+      margin-bottom: var(--space-4);
+    }
+
+    .cf-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .cf-group.full { grid-column: 1 / -1; }
+
+    .cf-label {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-soft);
+    }
+
+    .cf-input,
+    .cf-textarea {
+      padding: var(--space-3) var(--space-4);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--color-ink);
+      background: var(--color-cream);
+      transition: border-color var(--t-fast);
+    }
+
+    .cf-input:focus,
+    .cf-textarea:focus {
+      outline: none;
+      border-color: var(--color-rose);
+    }
+
+    .cf-textarea { resize: vertical; min-height: 120px; }
+
+    .cf-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-8);
+      background: var(--color-ink);
+      color: var(--color-cream);
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background var(--t-base);
+    }
+
+    .cf-submit:hover { background: var(--color-ink-soft); }
+
+    .cf-success {
+      display: none;
+      text-align: center;
+      padding: var(--space-8);
+      color: var(--color-text-soft);
+    }
+
+    .cf-success svg { color: #27AE60; margin-bottom: var(--space-3); }
+    .cf-success p { font-size: var(--text-md); color: var(--color-ink); margin-bottom: var(--space-2); }
+    .cf-success span { font-size: var(--text-sm); }
+
+    /* Map placeholder */
+    .map-section {
+      margin-bottom: var(--space-16);
+    }
+
+    .map-placeholder {
+      width: 100%;
+      height: 320px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, var(--color-cream-dark) 0%, var(--color-parchment) 100%);
+      border: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-4);
+      color: var(--color-text-soft);
+      margin-top: var(--space-6);
+    }
+
+    .map-placeholder svg { color: var(--color-rose); }
+    .map-placeholder p { font-size: var(--text-sm); text-align: center; }
+    .map-placeholder strong { color: var(--color-ink); font-size: var(--text-base); }
+
+    @media (max-width: 768px) {
+      .contacts-layout { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .contacts-page { padding: var(--space-8) var(--space-4); }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <nav class="nav-left">
+        <a href="catalog.html" class="nav-link">Каталог</a>
+        <a href="index.html#about" class="nav-link">О марке</a>
+      </nav>
+      <a href="index.html" class="logo" aria-label="Aura Pink — на главную">
+        <span class="logo-text">Aura Pink</span>
+      </a>
+      <nav class="nav-right">
+        <a href="index.html#lookbook" class="nav-link">Lookbook</a>
+        <a href="delivery.html" class="nav-link">Доставка</a>
+        <a href="contacts.html" class="nav-link" style="color:var(--color-rose)">Контакты</a>
+        <button class="nav-icon-btn cart-btn" aria-label="Корзина" id="cart-toggle">
+          <span class="cart-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>
+          <span class="cart-count" id="cart-count">0</span>
+        </button>
+        <button class="burger" aria-label="Меню" id="burger"><span></span><span></span><span></span></button>
+      </nav>
+    </div>
+  </header>
+
+    <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+      <a href="catalog.html" class="mobile-nav-link">Каталог</a>
+    </div>
+
+  <main>
+    <div class="contacts-page">
+
+      <div class="contacts-hero reveal">
+        <p class="section-eyebrow">Мы рядом</p>
+        <h1>Контакты</h1>
+        <p>Напишите или позвоните — поможем выбрать и ответим на любой вопрос</p>
+      </div>
+
+      <div class="contacts-layout">
+
+        <!-- Левая колонка — контакты -->
+        <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+
+          <div class="contact-card reveal">
+            <h2 class="contact-card-title">Связаться с нами</h2>
+
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13.5 19.79 19.79 0 01.22 4.9 2 2 0 012.22 2.72h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 10.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              </div>
+              <div class="contact-item-body">
+                <p class="contact-item-label">Телефон</p>
+                <a href="tel:+70000000000" class="contact-item-value">+7 (000) 000-00-00</a>
+                <p class="contact-item-sub">Пн–Вс, 10:00 – 21:00</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="contact-item-body">
+                <p class="contact-item-label">Email</p>
+                <a href="mailto:hello@aurapink.ru" class="contact-item-value">hello@aurapink.ru</a>
+                <p class="contact-item-sub">Ответим в течение часа</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="contact-card reveal">
+            <h2 class="contact-card-title">Мы в соцсетях</h2>
+            <div class="social-list">
+              <a href="#" class="social-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 5.013 3.693 9.153 8.505 9.876V14.65H8.031v-2.629h2.474v-1.749c0-2.896 1.411-4.167 3.818-4.167 1.153 0 1.762.085 2.051.124v2.294h-1.642c-1.022 0-1.379.969-1.379 2.061v1.437h2.995l-.406 2.629h-2.588v7.247C18.235 21.236 22 17.062 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                ВКонтакте
+              </a>
+              <a href="#" class="social-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21.6 12c0 5.302-4.298 9.6-9.6 9.6S2.4 17.302 2.4 12 6.698 2.4 12 2.4s9.6 4.298 9.6 9.6z"/><path d="M8 12l2.5 2.5L16 9"/></svg>
+                Telegram
+              </a>
+              <a href="#" class="social-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+                Instagram*
+              </a>
+              <a href="#" class="social-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                WhatsApp
+              </a>
+            </div>
+            <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin-top:var(--space-2)">*Instagram — продукт Meta, деятельность которой запрещена в РФ</p>
+          </div>
+
+          <div class="contact-card reveal">
+            <h2 class="contact-card-title">Адрес</h2>
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="contact-item-body">
+                <p class="contact-item-label">Пункт самовывоза</p>
+                <p class="contact-item-value">Адрес уточняется</p>
+                <p class="contact-item-sub">Уточняйте при оформлении заказа</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Правая колонка — форма -->
+        <div class="contact-form-wrap reveal">
+          <h2 class="contact-form-title">Написать нам</h2>
+          <form id="contact-form">
+            <div class="form-grid">
+              <div class="cf-group">
+                <label class="cf-label" for="cf-name">Имя</label>
+                <input type="text" id="cf-name" class="cf-input" placeholder="Анна" required />
+              </div>
+              <div class="cf-group">
+                <label class="cf-label" for="cf-email">Email</label>
+                <input type="email" id="cf-email" class="cf-input" placeholder="ваш@email.ru" required />
+              </div>
+              <div class="cf-group full">
+                <label class="cf-label" for="cf-subject">Тема</label>
+                <input type="text" id="cf-subject" class="cf-input" placeholder="Вопрос по заказу" />
+              </div>
+              <div class="cf-group full">
+                <label class="cf-label" for="cf-message">Сообщение</label>
+                <textarea id="cf-message" class="cf-textarea" placeholder="Расскажите, чем мы можем помочь..." required></textarea>
+              </div>
+            </div>
+            <button type="submit" class="cf-submit">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Отправить
+            </button>
+          </form>
+          <div class="cf-success" id="cf-success">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <p>Сообщение отправлено!</p>
+            <span>Мы свяжемся с вами в течение часа</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+  <!-- ─── КНОПКА НАВЕРХ ────────────────────────────────── -->
+  <button class="back-to-top" id="back-to-top" aria-label="Наверх">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo">Aura Pink</a>
+          <p class="footer-tagline">Тихая роскошь.<br>Натуральные ткани.</p>
+        </div>
+        <nav class="footer-nav">
+          <div class="footer-nav-col">
+            <p class="footer-nav-title">Покупателям</p>
+            <a href="delivery.html" class="footer-link">Доставка и оплата</a>
+            <a href="catalog.html" class="footer-link">Каталог</a>
+            <a href="contacts.html" class="footer-link" style="color:var(--color-rose)">Контакты</a>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Aura Pink</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', e => {
+      e.preventDefault();
+      document.getElementById('contact-form').style.display = 'none';
+      document.getElementById('cf-success').style.display = 'flex';
+      document.getElementById('cf-success').style.flexDirection = 'column';
+      document.getElementById('cf-success').style.alignItems = 'center';
+    });
+  </script>
+  <script>
+    // Back to top
+    const _btt = document.getElementById('back-to-top');
+    if (_btt) {
+      window.addEventListener('scroll', () => {
+        _btt.classList.toggle('visible', window.scrollY > 300);
+      }, { passive: true });
+      _btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+      m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109393999','ym');
+    ym(109393999, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:'dataLayer', referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109393999" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Aura Pink — Женская одежда</title>
+  <meta name="theme-color" content="#FFF1F5" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="description" content="Aura Pink — магазин женской одежды. Тихая роскошь, натуральные ткани, безупречный крой." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ─── НАВИГАЦИЯ ─────────────────────────────────────── -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <nav class="nav-left">
+        <a href="catalog.html" class="nav-link">Каталог</a>
+        <a href="#about" class="nav-link">О марке</a>
+      </nav>
+
+      <a href="#" class="logo" aria-label="Aura Pink — на главную">
+        <span class="logo-text">Aura Pink</span>
+      </a>
+
+      <nav class="nav-right">
+        <a href="#lookbook" class="nav-link">Lookbook</a>
+        <a href="delivery.html" class="nav-link">Доставка</a>
+        <a href="contacts.html" class="nav-link">Контакты</a>
+
+        <!-- Поиск -->
+        <button class="nav-icon-btn" id="search-toggle" aria-label="Поиск" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+
+        <!-- Избранное -->
+        <button class="nav-icon-btn" id="wishlist-toggle" aria-label="Избранное">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          <span class="wishlist-count" id="wishlist-count" aria-live="polite"></span>
+        </button>
+
+        <!-- Корзина -->
+        <button class="nav-icon-btn cart-btn" aria-label="Корзина" id="cart-toggle">
+          <span class="cart-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+              <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <path d="M16 10a4 4 0 01-8 0"/>
+            </svg>
+          </span>
+          <span class="cart-count" id="cart-count" aria-live="polite">0</span>
+        </button>
+
+        <button class="burger" aria-label="Меню" id="burger">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <a href="catalog.html" class="mobile-nav-link">Каталог</a>
+    <a href="#about" class="mobile-nav-link">О марке</a>
+    <a href="#lookbook" class="mobile-nav-link">Lookbook</a>
+    <a href="delivery.html" class="mobile-nav-link">Доставка</a>
+    <a href="contacts.html" class="mobile-nav-link">Контакты</a>
+  </div>
+  </div><!-- /.mobile-nav -->
+
+
+  <!-- ─── ПОИСК ───────────────────────────────────────────── -->
+  <div class="search-overlay" id="search-overlay" aria-hidden="true">
+    <div class="search-panel">
+      <div class="search-input-wrap">
+        <svg class="search-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="search" class="search-input" id="search-input" placeholder="Поиск" autocomplete="off" aria-label="Поиск по сайту" />
+        <button class="search-close" id="search-close" aria-label="Закрыть поиск">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="search-tags">
+        <button class="search-tag">Платья</button>
+        <button class="search-tag">Костюмы</button>
+        <button class="search-tag">Блузы</button>
+        <button class="search-tag">Юбки</button>
+        <button class="search-tag">Рубашки</button>
+        <button class="search-tag">Новинки</button>
+        <button class="search-tag">Скидки</button>
+        <button class="search-tag">Лён</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── ДОСТАВКА-СТРИП ──────────────────────────────── -->
+  <div class="delivery-strip">
+    <div class="delivery-strip-inner">
+      <span class="delivery-strip-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Бесплатная доставка от 5 000 ₽
+      </span>
+      <span class="delivery-strip-dot">·</span>
+      <span class="delivery-strip-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        Возврат 14 дней
+      </span>
+      <span class="delivery-strip-dot">·</span>
+      <span class="delivery-strip-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Оплата через ЮKassa
+      </span>
+      <span class="delivery-strip-dot">·</span>
+      <a href="delivery.html" class="delivery-strip-item delivery-strip-link">
+        Подробнее о доставке →
+      </a>
+    </div>
+  </div>
+
+  <!-- ─── HERO ──────────────────────────────────────────── -->
+  <section class="hero" aria-label="Главный баннер">
+    <div class="hero-bg">
+      <div class="hero-noise"></div>
+      <div class="hero-gradient"></div>
+    </div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow reveal">Открытие · Сафоново · 2026</p>
+      <h1 class="hero-title reveal">
+        <span class="line">Ты в Aura Pink —</span>
+        <span class="line italic">подари себе нежность</span>
+      </h1>
+      <p class="hero-desc reveal">Здесь тебя ждут наряды для тихих вечеров и ярких дней —<br>созданные с любовью к женственности.</p>
+      <div class="hero-cta reveal">
+        <a href="#collection" class="btn btn--primary">Смотреть коллекцию</a>
+        <a href="#about" class="btn btn--ghost">О бренде</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint" aria-hidden="true"><span class="scroll-label">прокрутите</span></div>
+
+    <div class="hero-deco hero-deco--1" aria-hidden="true">SS'26</div>
+    <div class="hero-deco hero-deco--2" aria-hidden="true">♡</div>
+    <div class="hero-hearts" id="hero-hearts" aria-hidden="true"></div>
+  </section>
+
+  <!-- ─── КАТЕГОРИИ ─────────────────────────────────────── -->
+  <section class="categories section" aria-label="Категории">
+    <div class="container">
+      <div class="categories-grid">
+        <article class="category-card reveal" data-delay="0" data-category-filter="dress" role="button" tabindex="0" style="cursor:pointer">
+          <div class="category-img category-img--1">
+            <div class="category-overlay"></div>
+          </div>
+          <div class="category-info">
+            <h3 class="category-name">Платья</h3>
+            <span class="category-link" id="count-dress">Загрузка...</span>
+          </div>
+        </article>
+
+        <article class="category-card reveal" data-delay="1" data-category-filter="suit" role="button" tabindex="0" style="cursor:pointer">
+          <div class="category-img category-img--2">
+            <div class="category-overlay"></div>
+          </div>
+          <div class="category-info">
+            <h3 class="category-name">Костюмы</h3>
+            <span class="category-link" id="count-suit">Загрузка...</span>
+          </div>
+        </article>
+
+        <article class="category-card reveal" data-delay="2" data-category-filter="blouse" role="button" tabindex="0" style="cursor:pointer">
+          <div class="category-img category-img--3">
+            <div class="category-overlay"></div>
+          </div>
+          <div class="category-info">
+            <h3 class="category-name">Блузы & Рубашки</h3>
+            <span class="category-link" id="count-blouse">Загрузка...</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── КОЛЛЕКЦИЯ ─────────────────────────────────────── -->
+  <section class="collection section" id="collection" aria-label="Коллекция">
+    <div class="container">
+      <header class="section-header reveal">
+        <p class="section-eyebrow">Новинки сезона</p>
+        <h2 class="section-title">Коллекция Aura&nbsp;SS'26</h2>
+      </header>
+
+      <div class="filters reveal">
+        <button class="filter-btn active" data-filter="all">Все</button>
+        <button class="filter-btn" data-filter="dress">Платья</button>
+        <button class="filter-btn" data-filter="suit">Костюмы</button>
+        <button class="filter-btn" data-filter="blouse">Блузы</button>
+        <button class="filter-btn" data-filter="skirt">Юбки</button>
+      </div>
+
+      <div class="products-grid" id="products-grid" aria-label="Список товаров">
+        <div class="products-loading" id="products-loading"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></div>
+      </div>
+
+      <div class="collection-footer reveal">
+        <a href="#collection" class="btn btn--outline" id="btn-show-all">Смотреть все товары</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── О МАРКЕ ───────────────────────────────────────── -->
+  <section class="about-banner section" id="about" aria-label="О марке">
+    <div class="about-inner">
+      <div class="about-img-block">
+        <div class="about-img"></div>
+        <div class="about-img-caption" aria-hidden="true">
+          <span>Сафоново</span>
+          <span>открытие 2026</span>
+        </div>
+      </div>
+
+      <div class="about-content">
+        <p class="section-eyebrow reveal">О бренде</p>
+        <h2 class="section-title reveal">Сделано с&nbsp;любовью</h2>
+        <p class="about-text reveal">Мы — бренд одежды, созданный с любовью для таких, как ты: кто любит пастельные оттенки, ценит комфорт и не боится быть нежной.</p>
+        <p class="about-text reveal">Знаешь, что делает наши вещи особенными?</p>
+        <ul class="about-values reveal">
+          <li class="value-item"><span class="value-icon">◇</span><span>Мы шьём в России — и лично следим за каждым стежком.</span></li>
+          <li class="value-item"><span class="value-icon">◇</span><span>Используем ткани от лучших итальянских и японских производителей — такие хочется трогать снова и снова!</span></li>
+          <li class="value-item"><span class="value-icon">◇</span><span>Выпускаем небольшие тиражи — чтобы ты чувствовала себя уникальной.</span></li>
+          <li class="value-item"><span class="value-icon">◇</span><span>Выбираем только натуральные материалы — потому что комфорт важнее всего.</span></li>
+          <li class="value-item"><span class="value-icon">◇</span><span>Никаких компромиссов — только то, что достойно тебя.</span></li>
+        </ul>
+        <a href="#collection" class="btn btn--primary reveal">Смотреть коллекцию</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── LOOKBOOK ────────────────────────────────────── -->
+  <section class="lookbook section" id="lookbook" aria-label="Lookbook">
+    <div class="container">
+      <header class="section-header reveal">
+        <p class="section-eyebrow">Образы сезона</p>
+        <h2 class="section-title">Lookbook SS'26</h2>
+      </header>
+    </div>
+
+    <div class="lookbook-strip" id="lookbook-strip">
+      <div class="lookbook-track" id="lookbook-track">
+        <div class="look look--1"></div>
+        <div class="look look--2"></div>
+        <div class="look look--3"></div>
+        <div class="look look--4"></div>
+        <div class="look look--5"></div>
+        <div class="look look--6"></div>
+        <div class="look look--1" aria-hidden="true"></div>
+        <div class="look look--2" aria-hidden="true"></div>
+        <div class="look look--3" aria-hidden="true"></div>
+        <div class="look look--4" aria-hidden="true"></div>
+        <div class="look look--5" aria-hidden="true"></div>
+        <div class="look look--6" aria-hidden="true"></div>
+        <div class="look look--1" aria-hidden="true"></div>
+        <div class="look look--2" aria-hidden="true"></div>
+        <div class="look look--3" aria-hidden="true"></div>
+        <div class="look look--4" aria-hidden="true"></div>
+        <div class="look look--5" aria-hidden="true"></div>
+        <div class="look look--6" aria-hidden="true"></div>
+        <div class="look look--1" aria-hidden="true"></div>
+        <div class="look look--2" aria-hidden="true"></div>
+        <div class="look look--3" aria-hidden="true"></div>
+        <div class="look look--4" aria-hidden="true"></div>
+        <div class="look look--5" aria-hidden="true"></div>
+        <div class="look look--6" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ПРЕИМУЩЕСТВА ─────────────────────────────────── -->
+  <section class="perks section" aria-label="Преимущества">
+    <div class="container">
+      <div class="perks-grid">
+
+        <div class="perk reveal" data-delay="0">
+          <div class="perk-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="perk-content">
+          <h4 class="perk-title">Безопасная оплата</h4>
+          <p class="perk-text">ЮKassa · Карты · СБП · Рассрочка</p>
+          </div>
+        </div>
+
+        <div class="perk reveal" data-delay="1">
+          <div class="perk-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </div>
+          <div class="perk-content">
+          <h4 class="perk-title">Персональный стилист</h4>
+          <p class="perk-text">Консультация по подбору образа — бесплатно</p>
+          </div>
+        </div>
+
+        <div class="perk perk--support reveal" data-delay="2" id="perk-support" role="button" tabindex="0" aria-label="Открыть чат поддержки">
+          <div class="perk-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
+          <div class="perk-content">
+          <h4 class="perk-title">Поддержка</h4>
+          <p class="perk-text">Ответим на любой вопрос — нажмите, чтобы написать нам</p>
+          </div>
+          <span class="perk-cta">Написать →</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ПОДПИСКА ──────────────────────────────────────── -->
+  <section class="subscribe section" aria-label="Подписка на новости">
+    <div class="subscribe-bg-decor" aria-hidden="true">
+      <span class="subscribe-petal subscribe-petal--1"></span>
+      <span class="subscribe-petal subscribe-petal--2"></span>
+      <span class="subscribe-petal subscribe-petal--3"></span>
+    </div>
+    <div class="container">
+      <div class="subscribe-inner reveal">
+        <div class="subscribe-content">
+          <p class="section-eyebrow">Будьте в&nbsp;курсе</p>
+          <h2 class="subscribe-title">Будьте первыми</h2>
+          <p class="subscribe-text">Новые поступления, закрытые продажи и&nbsp;истории за&nbsp;кадром — в&nbsp;вашем почтовом ящике.</p>
+          <ul class="subscribe-perks" aria-label="Что вы получите">
+            <li class="subscribe-perk-item">
+              <svg class="subscribe-perk-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M4.5 7l2 2 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Ранний доступ к&nbsp;новым коллекциям
+            </li>
+            <li class="subscribe-perk-item">
+              <svg class="subscribe-perk-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M4.5 7l2 2 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Закрытые предложения только для подписчиков
+            </li>
+            <li class="subscribe-perk-item">
+              <svg class="subscribe-perk-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M4.5 7l2 2 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Истории создания и&nbsp;взгляд за&nbsp;кадр
+            </li>
+          </ul>
+        </div>
+        <div class="subscribe-form-wrap">
+          <form class="subscribe-form" id="subscribe-form" novalidate>
+            <label class="subscribe-label" for="subscribe-email">Ваш email</label>
+            <div class="subscribe-input-wrap">
+              <input type="email" id="subscribe-email" class="subscribe-input" placeholder="ваш@email.ru" aria-label="Email для подписки" required />
+              <button type="submit" class="btn btn--primary subscribe-submit">
+                <span>Подписаться</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <p class="subscribe-note">Отписаться можно в&nbsp;любой момент. Без спама.</p>
+          </form>
+          <div class="subscribe-social-proof">
+            <div class="subscribe-avatars" aria-hidden="true">
+              <span class="subscribe-avatar" style="background: linear-gradient(135deg,#E8C4B4,#C4927A)">А</span>
+              <span class="subscribe-avatar" style="background: linear-gradient(135deg,#D9CFC2,#8A7869)">М</span>
+              <span class="subscribe-avatar" style="background: linear-gradient(135deg,#E0D4C8,#B8A090)">С</span>
+            </div>
+            <p class="subscribe-social-text">К&nbsp;нам уже присоединились <strong>2 400+</strong> ценителей стиля</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- ─── ФУТЕР ─────────────────────────────────────────── -->
+  <!-- ─── КНОПКА НАВЕРХ ────────────────────────────────── -->
+  <button class="back-to-top" id="back-to-top" aria-label="Наверх">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <footer class="site-footer" aria-label="Подвал сайта">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <p class="footer-logo">Aura Pink</p>
+          <p class="footer-tagline">Одежда, которая говорит тишиной.</p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Навигация по разделам">
+          <div class="footer-col">
+            <p class="footer-col-title">Магазин</p>
+            <a href="#collection" class="footer-link">Коллекция</a>
+            <a href="#lookbook" class="footer-link">Lookbook</a>
+            <a href="#" class="footer-link">Новинки</a>
+          </div>
+
+          <div class="footer-col">
+            <p class="footer-col-title">Помощь</p>
+            <a href="#" class="footer-link">Размерная сетка</a>
+            <a href="#" class="footer-link">Возврат</a>
+            <a href="#" class="footer-link">Контакты</a>
+          </div>
+
+          <div class="footer-col">
+            <p class="footer-col-title">Мы в соцсетях</p>
+            <a href="#" class="footer-link">ВКонтакте</a>
+            <a href="#" class="footer-link">Telegram</a>
+            <a href="#" class="footer-link">Pinterest</a>
+          </div>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Aura Pink · Сафоново. Все права защищены.</p>
+        <div class="footer-legal">
+          <a href="privacy.html" class="footer-link-sm">Политика конфиденциальности</a>
+          <a href="oferta.html" class="footer-link-sm">Публичная оферта</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── SIDEBAR КОРЗИНА ───────────────────────────────── -->
+  <aside class="cart-sidebar" id="cart-sidebar" aria-label="Корзина" aria-hidden="true">
+    <div class="cart-backdrop" id="cart-backdrop"></div>
+    <div class="cart-panel">
+      <header class="cart-header">
+        <h2 class="cart-title">Корзина</h2>
+        <button class="cart-close" id="cart-close" aria-label="Закрыть корзину">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </header>
+      <div class="cart-body" id="cart-body">
+        <div class="cart-empty" id="cart-empty">
+          <p class="cart-empty-icon">◇</p>
+          <p class="cart-empty-text">В корзине пока пусто</p>
+          <a href="#collection" class="btn btn--ghost cart-empty-btn">Перейти в каталог</a>
+        </div>
+        <ul class="cart-items" id="cart-items" aria-live="polite"></ul>
+      </div>
+      <footer class="cart-footer" id="cart-footer" style="display:none;">
+        <div class="cart-total-row">
+          <span class="cart-total-label">Итого</span>
+          <span class="cart-total-price" id="cart-total">0 ₽</span>
+        </div>
+        <button class="btn btn--primary cart-checkout" id="checkout-btn">Оформить заказ</button>
+        <p class="cart-pay-note">Оплата через ЮKassa · Безопасно</p>
+      </footer>
+    </div>
+  </aside>
+
+
+  <!-- ─── SIDEBAR ИЗБРАННОЕ ────────────────────────────── -->
+  <aside class="cart-sidebar" id="wishlist-sidebar" aria-label="Избранное" aria-hidden="true">
+    <div class="cart-backdrop" id="wishlist-backdrop"></div>
+    <div class="cart-panel">
+      <header class="cart-header">
+        <h2 class="cart-title">Избранное</h2>
+        <button class="cart-close" id="wishlist-close" aria-label="Закрыть избранное">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </header>
+      <div class="cart-body" id="wishlist-body">
+        <div class="cart-empty" id="wishlist-empty">
+          <p class="cart-empty-icon">♡</p>
+          <p class="cart-empty-text">Вы ещё ничего не добавили</p>
+          <a href="#collection" class="btn btn--ghost cart-empty-btn">Смотреть коллекцию</a>
+        </div>
+        <ul class="cart-items" id="wishlist-items" aria-live="polite"></ul>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ─── МОДАЛКА РАЗМЕРА ──────────────────────────────── -->
+  <div class="modal-overlay" id="size-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Выбор размера">
+    <div class="modal-panel">
+      <button class="modal-close" id="modal-close" aria-label="Закрыть">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="modal-img-wrap">
+        <div class="modal-product-img" id="modal-img"></div>
+      </div>
+      <div class="modal-content">
+        <p class="modal-brand">Aura Pink</p>
+        <h3 class="modal-product-name" id="modal-name"></h3>
+        <p class="modal-price" id="modal-price"></p>
+        <div class="modal-sizes">
+          <p class="modal-label">Выберите размер</p>
+          <div class="size-selector" id="size-selector">
+            <button class="size-option" data-size="XS">XS</button>
+            <button class="size-option" data-size="S">S</button>
+            <button class="size-option active" data-size="M">M</button>
+            <button class="size-option" data-size="L">L</button>
+            <button class="size-option" data-size="XL">XL</button>
+          </div>
+        </div>
+        <button class="btn btn--primary modal-add-to-cart" id="modal-add-btn">Добавить в корзину</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── ТОСТ ─────────────────────────────────────────── -->
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ─── МОДАЛКА ОПЛАТЫ ───────────────────────────────── -->
+  <div class="modal-overlay" id="payment-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Оформление заказа">
+    <div class="modal-panel modal-panel--payment">
+      <button class="modal-close" id="payment-modal-close" aria-label="Закрыть">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="payment-content">
+        <div class="payment-header">
+          <p class="modal-brand">Aura Pink</p>
+          <h3 class="payment-title">Оформление заказа</h3>
+        </div>
+        <div class="payment-order-summary" id="payment-summary"></div>
+        <div class="payment-form-section">
+          <p class="modal-label">Контактные данные</p>
+          <div class="payment-fields">
+            <input type="text" class="payment-input" placeholder="Имя и фамилия" id="pay-name" />
+            <input type="email" class="payment-input" placeholder="Email" id="pay-email" />
+            <input type="tel" class="payment-input" placeholder="Телефон" id="pay-phone" />
+          </div>
+          <p class="modal-label" style="margin-top:1.5rem;">Адрес доставки</p>
+          <div class="payment-fields">
+            <input type="text" class="payment-input" placeholder="Город" id="pay-city" />
+            <input type="text" class="payment-input" placeholder="Улица, дом, квартира" id="pay-address" />
+            <input type="text" class="payment-input" placeholder="Индекс" id="pay-zip" />
+          </div>
+          <p class="modal-label" style="margin-top:1.5rem;">Способ оплаты</p>
+          <div class="payment-methods">
+            <label class="pay-method active" data-method="bank_card">
+              <input type="radio" name="pay_method" value="bank_card" checked hidden/>
+              <span class="pay-method-label">Банковская карта</span>
+            </label>
+            <label class="pay-method" data-method="sbp">
+              <input type="radio" name="pay_method" value="sbp" hidden/>
+              <span class="pay-method-label">СБП</span>
+            </label>
+            <label class="pay-method" data-method="yoo_money">
+              <input type="radio" name="pay_method" value="yoo_money" hidden/>
+              <span class="pay-method-label">ЮMoney</span>
+            </label>
+          </div>
+        </div>
+        <div class="payment-total-row">
+          <span>Итого к оплате</span>
+          <strong id="payment-total-display">0 ₽</strong>
+        </div>
+        <button class="btn btn--primary payment-submit" id="payment-submit-btn">
+          Перейти к оплате через ЮKassa
+        </button>
+        <p class="cart-pay-note">Платёж обрабатывается сервисом ЮKassa.<br>256-bit SSL шифрование.</p>
+        <div id="yokassa-widget-container"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── ЧАТ ПОДДЕРЖКИ ────────────────────────────────── -->
+  <div class="support-widget" id="support-widget" aria-label="Чат поддержки">
+    <div class="support-chat" id="support-chat" aria-hidden="true">
+      <div class="support-chat-header">
+        <div class="support-avatar">AP</div>
+        <div class="support-info">
+          <p class="support-name">Aura Pink</p>
+          <p class="support-status">
+            <span class="support-online-dot"></span>Онлайн · ответим быстро
+          </p>
+        </div>
+        <button class="support-chat-close" id="support-chat-close" aria-label="Закрыть чат">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="support-messages" id="support-messages">
+        <div class="support-msg support-msg--in">
+          <p>Привет! 👋 Рада вас видеть в Aura Pink.</p>
+          <p>Если есть вопросы по размеру или составу — спрашивайте, я помогу.</p>
+        </div>
+      </div>
+
+      <div class="support-input-row">
+        <input type="text" class="support-input" id="support-input" placeholder="Написать сообщение…" aria-label="Сообщение поддержке" maxlength="500" />
+        <button class="support-send" id="support-send" aria-label="Отправить">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <button class="support-fab" id="support-fab" aria-label="Открыть чат поддержки" aria-expanded="false">
+      <span class="support-fab-icon support-fab-icon--chat">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      </span>
+      <span class="support-fab-icon support-fab-icon--close">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </span>
+      <span class="support-fab-badge" id="support-badge" aria-hidden="true">1</span>
+    </button>
+  </div>
+
+
+  <!-- ─── COOKIE БАННЕР ───────────────────────────────────── -->
+  <div class="cookie-banner" id="cookie-banner" role="alertdialog" aria-label="Использование cookies" aria-hidden="true">
+    <p class="cookie-text">
+      Мы используем cookies для корректной работы сайта, персонализации и статистики.
+      Продолжая пользоваться сайтом, вы соглашаетесь с нашей
+      <a href="privacy.html" class="cookie-link">политикой конфиденциальности</a>.
+    </p>
+    <div class="cookie-actions">
+      <button class="btn btn--primary cookie-accept" id="cookie-accept">Принять</button>
+      <button class="cookie-decline" id="cookie-decline">Только необходимые</button>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script src="js/supabase.js"></script>
+  <script>
+    // Back to top
+    const _btt = document.getElementById('back-to-top');
+    if (_btt) {
+      window.addEventListener('scroll', () => {
+        _btt.classList.toggle('visible', window.scrollY > 300);
+      }, { passive: true });
+      _btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
+  </script>
+<script>
+(function() {
+  const container = document.getElementById('hero-hearts');
+  if (!container) return;
+  const hero = container.closest('.hero');
+  const W = hero ? hero.offsetWidth : window.innerWidth;
+  const H = hero ? hero.offsetHeight : window.innerHeight;
+
+  const hearts = [
+    [0.03, 0.06, 44, -10, 0.55],
+    [0.07, 0.02, 28,   8, 0.40],
+    [0.10, 0.12, 60,  -5, 0.58],
+    [0.01, 0.18, 22,  12, 0.32],
+    [0.17, 0.30, 34,  -8, 0.36],
+    [0.06, 0.44, 50,   6, 0.42],
+    [0.37, 0.05, 26,  -5, 0.36],
+    [0.50, 0.03, 18,  10, 0.28],
+    [0.52, 0.44, 42,   8, 0.38],
+    [0.34, 0.53, 22, -12, 0.30],
+    [0.82, 0.05, 54,  -8, 0.50],
+    [0.89, 0.10, 76,   5, 0.56],
+    [0.93, 0.02, 28,  12, 0.36],
+    [0.97, 0.17, 40,  -6, 0.40],
+    [0.77, 0.19, 20,   8, 0.28],
+    [0.87, 0.36, 56, -10, 0.46],
+    [0.93, 0.43, 32,   6, 0.36],
+    [0.76, 0.49, 18,  -5, 0.28],
+    [0.02, 0.72, 36,  -8, 0.40],
+    [0.08, 0.80, 64,   6, 0.50],
+    [0.16, 0.88, 46,  -5, 0.46],
+    [0.21, 0.76, 26,  10, 0.36],
+    [0.27, 0.84, 80,  -8, 0.55],
+    [0.34, 0.90, 50,   5, 0.46],
+    [0.41, 0.78, 34, -10, 0.38],
+    [0.48, 0.86, 68,   8, 0.50],
+    [0.55, 0.72, 22,  -5, 0.32],
+    [0.61, 0.82, 42,   6, 0.40],
+    [0.68, 0.88, 28,  -8, 0.36],
+    [0.74, 0.76, 56,  10, 0.46],
+    [0.81, 0.84, 36,  -6, 0.40],
+    [0.88, 0.72, 20,   8, 0.30],
+    [0.94, 0.80, 48,  -5, 0.42],
+    [0.25, 0.14, 14,   5, 0.26],
+    [0.60, 0.22, 16,  -8, 0.26],
+    [0.55, 0.60, 12,   6, 0.22],
+    [0.30, 0.62, 18,  -6, 0.28],
+    [0.70, 0.60, 14,   8, 0.22],
+    [0.68, 0.08, 12,  -5, 0.24],
+  ];
+
+  hearts.forEach(([xr, yr, size, rot, op]) => {
+    const el = document.createElement('span');
+    el.className = 'hero-heart';
+    el.textContent = '♡';
+    el.style.cssText = `left:${xr*100}%;top:${yr*100}%;font-size:${size}px;transform:rotate(${rot}deg);opacity:${op};`;
+    container.appendChild(el);
+  });
+})();
+</script>
+</body>
+</html>
